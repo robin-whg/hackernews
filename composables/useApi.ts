@@ -1,8 +1,8 @@
 export default function () {
   const baseUrl = 'https://hacker-news.firebaseio.com/v0'
 
-  async function fetchItem(id: number): Promise<Item> {
-    return $fetch(`${baseUrl}/item/${id}.json`)
+  function fetchItem(id: number): Promise<Item> {
+    return $fetch<Item>(`${baseUrl}/item/${id}.json`)
   }
 
   async function fetchItems(ids: number[]): Promise<Item[]> {
@@ -10,11 +10,11 @@ export default function () {
   }
 
   async function fetchUser(id: string): Promise<User> {
-    return $fetch(`${baseUrl}/user/${id}.json`)
+    return $fetch<User>(`${baseUrl}/user/${id}.json`)
   }
 
-  async function fetchFeed(feedType: typeof FeedType): Promise<number[]> {
-    return $fetch(`${baseUrl}/${feedType}stories.json`)
+  async function fetchFeed(feedType: FeedType): Promise<number[]> {
+    return $fetch<number[]>(`${baseUrl}/${feedType}stories.json`)
   }
 
   return {
