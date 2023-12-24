@@ -4,7 +4,11 @@ export default defineNuxtConfig({
   typescript: {
     typeCheck: true,
   },
-  modules: ['@unocss/nuxt'],
+  ssr: false,
+  imports: {
+    dirs: ['types'],
+  },
+  modules: ['@unocss/nuxt', '@pinia/nuxt'],
   unocss: {
     preflight: true,
   },

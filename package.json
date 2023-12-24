@@ -11,6 +11,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
+  "dependencies": {
+    "@pinia/nuxt": "^0.5.1"
+  },
   "devDependencies": {
     "@antfu/eslint-config": "^2.4.6",
     "@iconify-json/tabler": "^1.1.102",
