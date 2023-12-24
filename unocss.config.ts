@@ -21,9 +21,8 @@ export default defineConfig({
       provider: 'bunny',
       fonts: {
         sans: {
-          name: 'Inter',
+          name: 'Ubuntu',
           weights: ['300', '400', '500', '600', '700'],
-          italic: true,
         },
       },
     }),
