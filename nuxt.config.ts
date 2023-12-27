@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['types'],
   },
-  modules: ['@unocss/nuxt', '@pinia/nuxt'],
+  modules: ['@unocss/nuxt', '@pinia/nuxt', 'nuxt-headlessui'],
   unocss: {
     preflight: true,
   },

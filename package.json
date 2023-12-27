@@ -12,6 +12,7 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "@iconify-json/heroicons": "^1.1.19",
     "@pinia/nuxt": "^0.5.1"
   },
   "devDependencies": {
@@ -24,6 +25,7 @@
     "@unocss/reset": "^0.58.0",
     "eslint": "^8.56.0",
     "nuxt": "^3.8.2",
+    "nuxt-headlessui": "^1.1.5",
     "typescript": "^5.3.3",
     "vue": "^3.3.12",
     "vue-router": "^4.2.5",
