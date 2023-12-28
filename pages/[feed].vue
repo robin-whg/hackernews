@@ -1,5 +1,7 @@
 <script lang='ts' setup>
-import type { FeedType } from '#imports'
+definePageMeta({
+  middleware: 'feed',
+})
 
 const route = useRoute()
 const router = useRouter()
