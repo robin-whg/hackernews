@@ -1,30 +1,20 @@
-<script setup>
-const navigation = [
-  'top',
-  'new',
-  'show',
-  'ask',
-  'jobs',
-]
-</script>
-
 <template>
-  <HeadlessDisclosure v-slot="{ open }" as="nav" class="sticky top-0 z-10 mx-auto bg-zinc-900/50 backdrop-blur">
-    <div class="mx-auto px-3 container">
+  <HeadlessDisclosure v-slot="{ open }" as="nav" class="z-10 mx-auto bg-zinc-900 px-3">
+    <div class="mx-auto container">
       <div class="relative h-12 flex items-center justify-between">
         <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-between">
           <div class="flex flex-shrink-0 items-center">
-            <NuxtLink to="/" class="font-semibold">
+            <NuxtLink to="/top" class="font-semibold">
               Y-News
             </NuxtLink>
           </div>
           <div class="hidden sm:block">
             <div class="flex space-x-3">
               <NuxtLink
-                v-for="item in navigation" :key="item" :to="`/${item}`"
+                v-for="feedType in feedTypes" :key="feedType" :to="`/${feedType}`"
                 class="rounded-lg px-3 py-1.5 font-semibold transition duration-100 hover:text-orange-600"
               >
-                {{ item }}
+                {{ feedType }}
               </NuxtLink>
             </div>
           </div>
@@ -45,10 +35,10 @@ const navigation = [
       <HeadlessDisclosurePanel class="sm:hidden">
         <div class="px-2 pb-3 pt-2 space-y-1">
           <HeadlessDisclosureButton
-            v-for="item in navigation" :key="item" as="a" :href="`/${item}/1`"
+            v-for="feedType in feedTypes" :key="feedType" as="a" :href="`/${feedType}`"
             class="block rounded-lg px-3 py-1.5 text-center font-semibold transition duration-100 hover:text-orange-600"
           >
-            {{ item }}
+            {{ feedType }}
           </HeadlessDisclosureButton>
         </div>
       </HeadlessDisclosurePanel>

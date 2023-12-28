@@ -4,7 +4,7 @@ const { items } = toRefs(props)
 </script>
 
 <template>
-  <div>
+  <div class="w-full">
     <ol class="flex flex-col">
       <template v-for="item in items" :key="item.id">
         <li>

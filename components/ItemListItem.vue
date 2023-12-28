@@ -33,8 +33,8 @@ const title = computed(() => {
 </script>
 
 <template>
-  <div class="px-1.5 py-3">
-    <div class="flex items-center gap-1 text-sm text-zinc-400">
+  <div class="py-3">
+    <div class="flex items-center gap-1.5 text-sm text-zinc-400">
       <div class="flex items-center gap-1">
         <div class="h-1.5 w-1.5 rounded-full" :class="type[1]" />
         {{ type[0] }}
@@ -45,14 +45,14 @@ const title = computed(() => {
       </div>
 
       <template v-if="item.url">
-        <NuxtLink class="text-sm text-zinc-400 hover:underline">
+        <p class="text-sm text-zinc-400">
           {{ host(item.url) }}
-        </NuxtLink>
+        </p>
       </template>
     </div>
 
     <template v-if="item.url">
-      <NuxtLink :to="item.url" class="line-clamp-2 lg:text-lg hover:underline">
+      <NuxtLink :to="item.url" class="line-clamp-2 lg:text-lg">
         {{ title }}
       </NuxtLink>
     </template>
@@ -62,8 +62,8 @@ const title = computed(() => {
       </p>
     </template>
 
-    <div class="flex items-center gap-1 text-sm text-zinc-400">
-      <span>
+    <div class="flex items-center text-sm text-zinc-400">
+      <span class="truncate pr-1.5">
         {{ item.score }} {{ item.score === 1 ? 'point' : 'points' }} by <NuxtLink class="hover:underline">{{ item.by }}
         </NuxtLink> {{ timeAgo(item.time) }} ago
       </span>
@@ -73,16 +73,18 @@ const title = computed(() => {
       </div>
 
       <template v-if="item.descendants !== undefined">
-        <div>
+        <div class="flex justify-end">
           <NuxtLink
             :to="`/item/${item.id}`"
-            class="group flex items-center gap-1 rounded-lg px-1 py-.5 transition duration-100 hover:text-orange-600"
+            class="group w-max flex items-center gap-1 rounded-md px-1.5 py-.5 transition duration-100 hover:bg-zinc-800 hover:text-white"
           >
             <div class="h-4 w-4 inline-flex flex-none">
-              <div class="i-tabler-message-circle group-hover:i-tabler-message-circle-2-filled h-4 w-4 flex-none" />
+              <div class="i-tabler-message h-4 w-4 flex-none" />
             </div>
             {{ item.descendants }}
-            {{ item.descendants === 1 ? 'comment' : 'comments' }}
+            <span class="hidden lg:block">
+              {{ item.descendants === 1 ? 'comment' : 'comments' }}
+            </span>
           </NuxtLink>
         </div>
       </template>
