@@ -1,1 +1,1 @@
-export type FeedType = 'top' | 'new' | 'best' | 'ask' | 'show' | 'job'
+export type FeedType = typeof feedTypes[number]

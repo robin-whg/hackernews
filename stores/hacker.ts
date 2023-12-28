@@ -9,14 +9,7 @@ export const useHackerStore = defineStore('hacker', {
   state: (): State => {
     return {
       items: [],
-      feeds: {
-        new: [],
-        ask: [],
-        job: [],
-        top: [],
-        best: [],
-        show: [],
-      },
+      feeds: Object.fromEntries(feedTypes.map(feedType => [[feedType], []])),
     }
   },
   getters: {
@@ -24,7 +17,7 @@ export const useHackerStore = defineStore('hacker', {
       return (id: number) => state.items.find(item => item.id === id)
     },
     getFeed: (state) => {
-      return (feedType: FeedType, page = 1) => state.items.filter(item => state.feeds[feedType].slice(0, page * 30).includes(item.id))
+      return (feedType: FeedType, page: number) => state.items.filter(item => state.feeds[feedType].slice(0, page * 30).includes(item.id))
     },
   },
   actions: {
