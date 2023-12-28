@@ -32,14 +32,16 @@
         </div>
       </div>
 
-      <HeadlessDisclosurePanel class="sm:hidden">
+      <HeadlessDisclosurePanel v-slot="{ close }" class="sm:hidden">
         <div class="px-2 pb-3 pt-2 space-y-1">
-          <HeadlessDisclosureButton
-            v-for="feedType in feedTypes" :key="feedType" as="a" :href="`/${feedType}`"
+          <NuxtLink
+            v-for="feedType in feedTypes"
+            :key="feedType" :to="`/${feedType}`"
             class="block rounded-lg px-3 py-1.5 text-center font-semibold transition duration-100 hover:text-orange-600"
+            @click="close"
           >
             {{ feedType }}
-          </HeadlessDisclosureButton>
+          </NuxtLink>
         </div>
       </HeadlessDisclosurePanel>
     </div>
