@@ -4,17 +4,17 @@
 
 - [ ] Add focus states
 - [ ] Add error handling
-- [ ] Add footer
 - [ ] Add routing
-- [ ] Add user page
 - [ ] Add item page
 - [ ] Add comments component
 - [ ] Add transitions
 
 ## In progress
 
-- [ ] Add navbar
-- [ ] Add item list
-- [ ] Add feed view
-
 ## Done
+
+- [x] Add user page
+- [x] Add navbar
+- [x] Add item list
+- [x] Add feed view
+- [x] Add footer

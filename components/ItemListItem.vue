@@ -64,7 +64,7 @@ const title = computed(() => {
 
     <div class="flex items-center text-sm text-zinc-400">
       <span class="truncate pr-1.5">
-        {{ item.score }} {{ item.score === 1 ? 'point' : 'points' }} by <NuxtLink class="hover:underline">{{ item.by }}
+        {{ item.score }} {{ item.score === 1 ? 'point' : 'points' }} by <NuxtLink class="hover:underline" :to="`/user/${item.by}`">{{ item.by }}
         </NuxtLink> {{ timeAgo(item.time) }} ago
       </span>
 
