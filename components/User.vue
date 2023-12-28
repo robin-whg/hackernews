@@ -6,19 +6,25 @@ const created = computed(() => new Date(user.value?.created * 1000).toLocaleDate
 </script>
 
 <template>
-  <div class="mx-auto max-w-2xl flex flex-col gap-6 container">
-    <div class="flex flex-col">
-      <h1 class="text-2xl font-semibold md:text-4xl">
+  <div class="flex flex-col gap-6">
+    <div>
+      <div class="h-7 flex items-center gap-1.5 text-sm text-zinc-400">
+        <div class="flex items-center gap-1">
+          <div class="h-1.5 w-1.5 rounded-full bg-cyan-600" />
+          User
+        </div>
+      </div>
+
+      <p class="md:text-lg">
         {{ user.id }}
-      </h1>
-      <div class="flex items-center gap-1.5 text-sm text-zinc-400 md:text-base">
+      </p>
+
+      <div class="h-7 flex items-center gap-1.5 text-sm text-zinc-400">
         <span class="truncate">
-          created {{ created }}
+          {{ created }}
         </span>
 
-        <div class="py-.5">
-          <div class="i-tabler-slash h-4 w-4 flex-none" />
-        </div>
+        <div class="i-tabler-slash h-4 w-4 flex-none" />
 
         <span class="truncate">
           {{ user.karma }} karma
