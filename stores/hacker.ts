@@ -18,6 +18,9 @@ export const useHackerStore = defineStore('hacker', {
     getItem: (state) => {
       return (id: number) => state.items.find(item => item.id === id)
     },
+    getItems: (state) => {
+      return (ids: number[]) => state.items.filter(item => ids.includes(item.id))
+    },
     getFeed: (state) => {
       return (feedType: FeedType, page: number) => state.items.filter(item => state.feeds[feedType].slice(0, page * 30).includes(item.id))
     },
@@ -29,6 +32,10 @@ export const useHackerStore = defineStore('hacker', {
     async fetchItem(id: number) {
       const item = await api.fetchItem(id)
       this.items.push(item)
+    },
+    async fetchItems(ids: number[]) {
+      const items = await api.fetchItems(ids)
+      items.forEach(item => this.items.push(item))
     },
     async fetchFeed(feedType: FeedType, page = 1) {
       // Fetch feed if needed
@@ -43,10 +50,8 @@ export const useHackerStore = defineStore('hacker', {
       // Fetch items that are not in the store
       const itemsToFetch = ids.filter(id => !this.items.find(item => item.id === id))
 
-      if (itemsToFetch.length > 0) {
-        const newItems = await api.fetchItems(itemsToFetch)
-        newItems.forEach(item => this.items.push(item))
-      }
+      if (itemsToFetch.length > 0)
+        await this.fetchItems(itemsToFetch)
     },
     async fetchUser(id: string) {
       const user = await api.fetchUser(id)
