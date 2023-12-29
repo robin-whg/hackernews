@@ -4,8 +4,6 @@ const { item } = toRefs(props)
 
 const { host, timeAgo } = useUtils()
 
-const type = computed(() => getType(item.value))
-
 const title = computed(() => {
   const ask = 'Ask HN:'
   if (item.value.title?.startsWith(ask))
@@ -23,10 +21,7 @@ const title = computed(() => {
   <div class="flex flex-col gap-6">
     <div>
       <div class="h-7 flex items-center gap-1.5 text-sm text-zinc-400">
-        <div class="flex items-center gap-1">
-          <div class="h-1.5 w-1.5 rounded-full" :class="type[1]" />
-          {{ type[0] }}
-        </div>
+        <BaseItemBadge :item="item" />
 
         <template v-if="item.url">
           <div class="i-tabler-slash h-4 w-4 flex-none" />
