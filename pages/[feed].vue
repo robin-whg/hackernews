@@ -39,10 +39,9 @@ const isEnd = computed(() => {
         </div>
       </template>
       <template v-else>
-        <button class="rounded-lg px-3 py-1.5 text-sm transition duration-100 hover:bg-zinc-800 hover:text-white" :disabled="loading" @click="loadMore">
-          <div class="i-tabler-arrow-down h-4 w-4 flex-none" />
+        <BaseButton :disabled="loading" icon="i-tabler-arrow-down" @click="loadMore">
           load more
-        </button>
+        </BaseButton>
       </template>
     </template>
   </div>

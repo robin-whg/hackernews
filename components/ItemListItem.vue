@@ -52,16 +52,18 @@ const title = computed(() => {
       <template v-if="item.descendants !== undefined">
         <div class="i-tabler-slash h-4 w-4 flex-none" />
 
-        <NuxtLink
+        <BaseButton
+          as="NuxtLink"
+          sm
           :to="`https://news.ycombinator.com/item?id=${item.id}`"
           class="group w-max flex items-center gap-1 rounded-md px-1.5 py-.5 transition duration-100 hover:bg-zinc-800 hover:text-white"
+          icon="i-tabler-message"
         >
-          <div class="i-tabler-message h-4 w-4 flex-none" />
           {{ item.descendants }}
           <span class="hidden md:block">
             {{ item.descendants === 1 ? 'comment' : 'comments' }}
           </span>
-        </NuxtLink>
+        </BaseButton>
       </template>
     </div>
   </div>

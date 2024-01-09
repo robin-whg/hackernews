@@ -8,10 +8,9 @@
         </NuxtLink>
       </div>
       <div>
-        <NuxtLink target="_blank" to="https://github.com/robin-whg/y-news" class="group flex items-center gap-1 rounded px-1.5 py-.5 text-sm text-zinc-400 transition duration-100 hover:bg-zinc-800 hover:text-white">
-          <div class="i-tabler-brand-github h-4 w-4 flex-none" />
+        <BaseButton as="NuxtLink" sm target="_blank" to="https://github.com/robin-whg/y-news" icon="i-tabler-brand-github">
           Github
-        </NuxtLink>
+        </BaseButton>
       </div>
     </div>
   </div>
