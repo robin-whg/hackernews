@@ -8,28 +8,27 @@ const route = useRoute()
 const feedType = computed(() => route.params.feed as FeedType)
 const page = ref(1)
 
-const hackerStore = useHackerStore()
-const { getFeed } = storeToRefs(hackerStore)
+const store = useHackerStore()
 
-await hackerStore.fetchFeed(feedType.value, page.value)
+await store.fetchFeed(feedType.value, page.value)
 
 const loading = ref(false)
 
 async function loadMore() {
   loading.value = true
   page.value += 1
-  await hackerStore.fetchFeed(feedType.value, page.value)
+  await store.fetchFeed(feedType.value, page.value)
   loading.value = false
 }
 
 const isEnd = computed(() => {
-  return getFeed.value(feedType.value, page.value).length === hackerStore.feeds[feedType.value].length
+  return store.getFeed(feedType.value, page.value).length === store.feeds[feedType.value].length
 })
 </script>
 
 <template>
   <div class="mx-auto flex flex-col items-center gap-6 container">
-    <ItemList class="max-w-2xl" :items="getFeed(feedType, page)" />
+    <ItemList class="max-w-2xl" :items="store.getFeed(feedType, page)" />
 
     <template v-if="!isEnd">
       <template v-if="loading">
