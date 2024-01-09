@@ -9,10 +9,6 @@ export default function () {
     return Promise.all(ids.map(id => fetchItem(id)))
   }
 
-  async function fetchUser(id: string): Promise<User> {
-    return $fetch<User>(`${baseUrl}/user/${id}.json`)
-  }
-
   async function fetchFeed(feedType: FeedType): Promise<number[]> {
     return $fetch<number[]>(`${baseUrl}/${feedType}stories.json`)
   }
@@ -20,7 +16,6 @@ export default function () {
   return {
     fetchItem,
     fetchItems,
-    fetchUser,
     fetchFeed,
   }
 }

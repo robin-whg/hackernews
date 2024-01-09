@@ -1,7 +1,6 @@
 interface State {
   items: Item[]
   feeds: { [key in FeedType]: number[] }
-  users: User[]
 }
 
 const api = useApi()
@@ -11,7 +10,6 @@ export const useHackerStore = defineStore('hacker', {
     return {
       items: [],
       feeds: Object.fromEntries(feedTypes.map(feedType => [[feedType], []])),
-      users: [],
     }
   },
   getters: {
@@ -23,9 +21,6 @@ export const useHackerStore = defineStore('hacker', {
     },
     getFeed: (state) => {
       return (feedType: FeedType, page: number) => state.items.filter(item => state.feeds[feedType].slice(0, page * 30).includes(item.id))
-    },
-    getUser: (state) => {
-      return (id: string) => state.users.find(user => user.id === id)
     },
   },
   actions: {
@@ -52,10 +47,6 @@ export const useHackerStore = defineStore('hacker', {
 
       if (itemsToFetch.length > 0)
         await this.fetchItems(itemsToFetch)
-    },
-    async fetchUser(id: string) {
-      const user = await api.fetchUser(id)
-      this.users.push(user)
     },
   },
 })

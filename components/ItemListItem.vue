@@ -44,15 +44,16 @@ const title = computed(() => {
 
     <div class="h-7 flex items-center text-sm text-zinc-400">
       <span class="truncate pr-1.5">
-        {{ item.score }} {{ item.score === 1 ? 'point' : 'points' }} by <NuxtLink class="hover:underline" :to="`/user/${item.by}`">{{ item.by }}
-        </NuxtLink> {{ timeAgo(item.time) }} ago
+        {{ item.score }} {{ item.score === 1 ? 'point' : 'points' }} by
+        <NuxtLink class="hover:underline" :to="`https://news.ycombinator.com/user?id=${item.by}`">{{ item.by }} </NuxtLink>
+        {{ timeAgo(item.time) }} ago
       </span>
 
       <template v-if="item.descendants !== undefined">
         <div class="i-tabler-slash h-4 w-4 flex-none" />
 
         <NuxtLink
-          :to="`/item/${item.id}`"
+          :to="`https://news.ycombinator.com/item?id=${item.id}`"
           class="group w-max flex items-center gap-1 rounded-md px-1.5 py-.5 transition duration-100 hover:bg-zinc-800 hover:text-white"
         >
           <div class="i-tabler-message h-4 w-4 flex-none" />
