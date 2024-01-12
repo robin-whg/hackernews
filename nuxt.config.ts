@@ -4,7 +4,6 @@ export default defineNuxtConfig({
   typescript: {
     typeCheck: true,
   },
-  ssr: false,
   imports: {
     dirs: ['types'],
   },
