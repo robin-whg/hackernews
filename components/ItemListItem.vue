@@ -32,7 +32,7 @@ const title = computed(() => {
     </div>
 
     <template v-if="item.url">
-      <NuxtLink :to="item.url" class="line-clamp-2 md:text-lg">
+      <NuxtLink :to="item.url" class="line-clamp-2 md:text-lg visited:text-zinc-400">
         {{ title }}
       </NuxtLink>
     </template>
