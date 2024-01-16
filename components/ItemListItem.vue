@@ -19,7 +19,7 @@ const title = computed(() => {
 
 <template>
   <div class="py-3">
-    <div class="h-7 flex items-center gap-1.5 text-sm text-zinc-400">
+    <div class="h-6 flex items-center gap-1.5 text-sm text-zinc-400">
       <BaseItemBadge :item="item" />
 
       <template v-if="item.url">
@@ -42,7 +42,7 @@ const title = computed(() => {
       </p>
     </template>
 
-    <div class="h-7 flex items-center text-sm text-zinc-400">
+    <div class="h-6 flex items-center text-sm text-zinc-400">
       <span class="truncate pr-1.5">
         {{ item.score }} {{ item.score === 1 ? 'point' : 'points' }} by
         <NuxtLink class="hover:underline" :to="`https://news.ycombinator.com/user?id=${item.by}`">{{ item.by }} </NuxtLink>
