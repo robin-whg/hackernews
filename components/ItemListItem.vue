@@ -15,6 +15,10 @@ const title = computed(() => {
 
   return item.value?.title
 })
+
+const settings = useSettingsStore()
+
+const target = computed(() => settings.openItemsInNewTab ? '_blank' : '_self')
 </script>
 
 <template>
@@ -32,7 +36,7 @@ const title = computed(() => {
     </div>
 
     <template v-if="item.url">
-      <NuxtLink :to="item.url" class="line-clamp-2 md:text-lg visited:text-zinc-400">
+      <NuxtLink :target :to="item.url" class="line-clamp-2 md:text-lg visited:text-zinc-400">
         {{ title }}
       </NuxtLink>
     </template>
@@ -45,7 +49,7 @@ const title = computed(() => {
     <div class="h-6 flex items-center text-sm text-zinc-400">
       <span class="truncate pr-1.5">
         {{ item.score }} {{ item.score === 1 ? 'point' : 'points' }} by
-        <NuxtLink class="hover:underline" :to="`https://news.ycombinator.com/user?id=${item.by}`">{{ item.by }} </NuxtLink>
+        <NuxtLink :target class="hover:underline" :to="`https://news.ycombinator.com/user?id=${item.by}`">{{ item.by }} </NuxtLink>
         {{ timeAgo(item.time) }} ago
       </span>
 
@@ -54,6 +58,7 @@ const title = computed(() => {
 
         <BaseButton
           as="NuxtLink"
+          :target
           sm
           :to="`https://news.ycombinator.com/item?id=${item.id}`"
           class="group w-max flex items-center gap-1 rounded-md px-1.5 py-.5 transition duration-100 hover:bg-zinc-800 hover:text-white"

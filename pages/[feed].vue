@@ -32,7 +32,7 @@ const isEnd = computed(() => {
 
     <template v-if="!isEnd">
       <template v-if="loading">
-        <div class="flex items-center gap-1 px-3 py-1.5 text-sm">
+        <div class="flex items-center gap-1.5 px-3 py-1.5 text-sm">
           <div class="i-tabler-loader-2 h-4 w-4 flex-none animate-spin" />
           loading…
         </div>
