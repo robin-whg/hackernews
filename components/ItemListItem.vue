@@ -36,7 +36,7 @@ const target = computed(() => settings.openItemsInNewTab ? '_blank' : '_self')
     </div>
 
     <template v-if="item.url">
-      <NuxtLink :target :to="item.url" class="line-clamp-2 md:text-lg visited:text-zinc-400">
+      <NuxtLink :target :to="item.url" class="line-clamp-2 text-zinc-50 md:text-lg visited:text-zinc-400">
         {{ title }}
       </NuxtLink>
     </template>
