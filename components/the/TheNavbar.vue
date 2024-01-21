@@ -12,7 +12,7 @@
         <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-between">
           <div class="flex flex-shrink-0 items-center">
             <NuxtLink to="/top" class="font-semibold">
-              Y-News
+              hackernews
             </NuxtLink>
           </div>
           <div class="hidden sm:block">
