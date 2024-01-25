@@ -1,7 +1,2 @@
-# To Do
+# README
 
-## Backlog
-
-- [ ] Add bookmark functionality
-- [ ] Make PWA
-- [ ] Add head stuff
