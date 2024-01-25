@@ -8,7 +8,7 @@
         </NuxtLink>
       </div>
       <div>
-        <BaseButton as="NuxtLink" sm target="_blank" to="https://github.com/robin-whg/y-news" icon="i-tabler-brand-github">
+        <BaseButton as="NuxtLink" sm target="_blank" to="https://github.com/robin-whg/hackernews" icon="i-tabler-brand-github">
           Github
         </BaseButton>
       </div>
