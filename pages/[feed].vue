@@ -8,6 +8,10 @@ const route = useRoute()
 const feedType = computed(() => route.params.feed as FeedType)
 const page = ref(1)
 
+useHead({
+  title: feedType.value,
+})
+
 const store = useHackerStore()
 
 await store.fetchFeed(feedType.value, page.value)

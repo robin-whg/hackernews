@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@iconify-json/heroicons": "^1.1.19",
+    "@nuxtjs/robots": "^3.0.0",
     "@pinia/nuxt": "^0.5.1",
     "pinia": "^2.1.7"
   },
