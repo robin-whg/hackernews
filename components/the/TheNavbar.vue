@@ -23,6 +23,12 @@
               >
                 {{ feedType }}
               </NuxtLink>
+              <NuxtLink
+                to="/bookmarks"
+                class="rounded-lg px-3 py-1.5 font-semibold transition duration-100 hover:text-orange-600"
+              >
+                bookmarks
+              </NuxtLink>
             </div>
           </div>
         </div>
@@ -39,6 +45,13 @@
             @click="close"
           >
             {{ feedType }}
+          </NuxtLink>
+          <NuxtLink
+            to="/bookmarks"
+            class="block rounded-lg px-3 py-1.5 text-center font-semibold transition duration-100 hover:text-orange-600"
+            @click="close"
+          >
+            bookmarks
           </NuxtLink>
         </div>
       </HeadlessDisclosurePanel>
