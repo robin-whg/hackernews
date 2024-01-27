@@ -29,8 +29,12 @@ export const useHackerStore = defineStore('hacker', {
       this.items.push(item)
     },
     async fetchItems(ids: number[]) {
-      const items = await api.fetchItems(ids)
-      items.forEach(item => this.items.push(item))
+      const itemsToFetch = ids.filter(id => !this.items.find(item => item.id === id))
+
+      if (itemsToFetch.length > 0) {
+        const items = await api.fetchItems(ids)
+        items.forEach(item => this.items.push(item))
+      }
     },
     async fetchFeed(feedType: FeedType, page = 1) {
       // Fetch feed if needed
@@ -42,11 +46,7 @@ export const useHackerStore = defineStore('hacker', {
       // Get ids of current page
       const ids = this.feeds[feedType].slice((page - 1) * 30, page * 30)
 
-      // Fetch items that are not in the store
-      const itemsToFetch = ids.filter(id => !this.items.find(item => item.id === id))
-
-      if (itemsToFetch.length > 0)
-        await this.fetchItems(itemsToFetch)
+      await this.fetchItems(ids)
     },
   },
 })
