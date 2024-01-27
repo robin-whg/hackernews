@@ -29,6 +29,7 @@ export const useHackerStore = defineStore('hacker', {
       this.items.push(item)
     },
     async fetchItems(ids: number[]) {
+      // filter out ids that don't need to be fetched
       const idsToFetch = ids.filter(id => !this.items.find(item => item.id === id))
 
       if (idsToFetch.length > 0) {
