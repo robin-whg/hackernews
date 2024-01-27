@@ -16,9 +16,9 @@ const title = computed(() => {
   return item.value?.title
 })
 
-const settings = useSettingsStore()
+const storage = useStorageStore()
 
-const target = computed(() => settings.openItemsInNewTab ? '_blank' : '_self')
+const target = computed(() => storage.openItemsInNewTab ? '_blank' : '_self')
 </script>
 
 <template>

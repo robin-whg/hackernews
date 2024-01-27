@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const settings = useSettingsStore()
+const storage = useStorageStore()
 </script>
 
 <template>
@@ -23,7 +23,7 @@ const settings = useSettingsStore()
           <HeadlessMenuItem as="div" @click.prevent>
             <HeadlessSwitch
               v-slot="{ checked }"
-              v-model="settings.openItemsInNewTab"
+              v-model="storage.openItemsInNewTab"
               class="w-full flex items-center justify-between px-3 py-1.5 text-sm font-medium"
             >
               Open items in new tab

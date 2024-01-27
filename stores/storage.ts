@@ -2,7 +2,7 @@ interface State {
   openItemsInNewTab: boolean
 }
 
-export const useSettingsStore = defineStore('settings', {
+export const useStorageStore = defineStore('storage', {
   state: (): State => {
     return {
       openItemsInNewTab: false,
