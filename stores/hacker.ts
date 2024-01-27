@@ -40,7 +40,10 @@ export const useHackerStore = defineStore('hacker', {
     async fetchFeed(feedType: FeedType, page = 1) {
       // Fetch feed if needed
       if (!this.feeds[feedType].length) {
-        const feedIds = await api.fetchFeed(feedType)
+        // Bookmarks feed doesn't need to be fetched with api
+        const storageStore = useStorageStore()
+        const feedIds = feedType === 'bookmarks' ? storageStore.bookmarks.map(x => x.id) : await api.fetchFeed(feedType)
+
         this.feeds[feedType] = feedIds
       }
 
@@ -48,6 +51,18 @@ export const useHackerStore = defineStore('hacker', {
       const ids = this.feeds[feedType].slice((page - 1) * 30, page * 30)
 
       await this.fetchItems(ids)
+    },
+    addBookmark(item: Item) {
+      this.feeds.bookmarks.push(item.id)
+
+      const storageStore = useStorageStore()
+      storageStore.addBookmark(item.id)
+    },
+    removeBookmark(item: Item) {
+      this.feeds.bookmarks = this.feeds.bookmarks.filter(x => x !== item.id)
+
+      const storageStore = useStorageStore()
+      storageStore.removeBookmark(item.id)
     },
   },
 })

@@ -19,6 +19,8 @@ const title = computed(() => {
 const storage = useStorageStore()
 
 const target = computed(() => storage.openItemsInNewTab ? '_blank' : '_self')
+
+const store = useHackerStore()
 </script>
 
 <template>
@@ -61,13 +63,26 @@ const target = computed(() => storage.openItemsInNewTab ? '_blank' : '_self')
           :target
           sm
           :to="`https://news.ycombinator.com/item?id=${item.id}`"
-          class="group w-max flex items-center gap-1 rounded-md px-1.5 py-.5 transition duration-100 hover:bg-zinc-800 hover:text-white"
-          icon="i-tabler-message"
+          icon="i-tabler-message-circle"
         >
           {{ item.descendants }}
           <span class="hidden md:block">
             {{ item.descendants === 1 ? 'comment' : 'comments' }}
           </span>
+        </BaseButton>
+
+        <!-- HACK: isBookmarked and addBookmark should be from the same source -->
+        <BaseButton
+          v-if="!storage.isBookmarked(item.id)"
+          sm
+          icon="i-tabler-bookmark"
+          @click="store.addBookmark(item)"
+        >
+          bookmark
+        </BaseButton>
+
+        <BaseButton v-else icon="i-tabler-bookmark-minus" sm @click="store.removeBookmark(item)">
+          remove
         </BaseButton>
       </template>
     </div>
