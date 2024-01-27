@@ -5,12 +5,15 @@ const { items } = toRefs(props)
 
 <template>
   <div class="w-full">
-    <ol class="flex flex-col">
+    <ol v-if="items.length" class="flex flex-col">
       <template v-for="item in items" :key="item.id">
         <li>
           <ItemListItem :item="item" />
         </li>
       </template>
     </ol>
+    <p v-else class="my-6 text-center">
+      This list is empty :(
+    </p>
   </div>
 </template>
