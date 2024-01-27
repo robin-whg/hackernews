@@ -29,10 +29,10 @@ export const useHackerStore = defineStore('hacker', {
       this.items.push(item)
     },
     async fetchItems(ids: number[]) {
-      const itemsToFetch = ids.filter(id => !this.items.find(item => item.id === id))
+      const idsToFetch = ids.filter(id => !this.items.find(item => item.id === id))
 
-      if (itemsToFetch.length > 0) {
-        const items = await api.fetchItems(ids)
+      if (idsToFetch.length > 0) {
+        const items = await api.fetchItems(idsToFetch)
         items.forEach(item => this.items.push(item))
       }
     },
