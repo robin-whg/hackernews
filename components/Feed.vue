@@ -4,7 +4,7 @@ const { feedType } = toRefs(props)
 
 const page = ref(1)
 
-const store = useHackerStore()
+const store = useContentStore()
 
 await store.fetchFeed(feedType.value, page.value)
 

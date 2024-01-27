@@ -5,7 +5,7 @@ interface State {
 
 const api = useApi()
 
-export const useHackerStore = defineStore('hacker', {
+export const useContentStore = defineStore('content', {
   state: (): State => {
     return {
       items: [],

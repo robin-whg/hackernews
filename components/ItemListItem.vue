@@ -20,7 +20,7 @@ const storage = useStorageStore()
 
 const target = computed(() => storage.openItemsInNewTab ? '_blank' : '_self')
 
-const store = useHackerStore()
+const store = useContentStore()
 </script>
 
 <template>
