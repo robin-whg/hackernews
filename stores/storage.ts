@@ -1,30 +1,25 @@
-interface State {
-  openItemsInNewTab: boolean
-  bookmarks: Bookmark[]
-}
+export const useStorageStore = defineStore('storage', () => {
+  const openItemsInNewTab = ref(false)
+  const bookmarks = ref<Bookmark[]>([])
 
-export const useStorageStore = defineStore('storage', {
-  state: (): State => {
-    return {
-      openItemsInNewTab: false,
-      bookmarks: [],
-    }
-  },
-  getters: {
-    isBookmarked: (state) => {
-      return (id: number) => state.bookmarks.find(item => item.id === id)
-    },
-  },
-  actions: {
-    addBookmark(id: number) {
-      if (!this.isBookmarked(id))
-        this.bookmarks.push({ id, timestamp: Date.now() })
-    },
-    removeBookmark(id: number) {
-      this.bookmarks = this.bookmarks.filter(bookmark => bookmark.id !== id)
-    },
-  },
-  persist: {
-    storage: persistedState.localStorage,
-  },
-})
+  function isBookmarked(id: number) {
+    return bookmarks.value.find(bookmark => bookmark.id === id)
+  }
+
+  function addBookmark(id: number) {
+    if (!isBookmarked(id))
+      bookmarks.value.push({ id, timestamp: Date.now() })
+  }
+
+  function removeBookmark(id: number) {
+    bookmarks.value = bookmarks.value.filter(bookmark => bookmark.id !== id)
+  }
+
+  return {
+    openItemsInNewTab,
+    bookmarks,
+    isBookmarked,
+    addBookmark,
+    removeBookmark,
+  }
+}, { persist: { storage: localStorage } })

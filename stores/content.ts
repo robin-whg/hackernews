@@ -1,68 +1,61 @@
-interface State {
-  items: Item[]
-  feeds: { [key in FeedType]: number[] }
-}
+export const useContentStore = defineStore('content', () => {
+  const api = useApi()
+  const storage = useStorageStore()
 
-const api = useApi()
+  const items = ref<Item[]>([])
+  const feeds = ref<{ [key in FeedType]: number[] }>(Object.fromEntries(feedTypes.map(feedType => [[feedType], []])))
 
-export const useContentStore = defineStore('content', {
-  state: (): State => {
-    return {
-      items: [],
-      feeds: Object.fromEntries(feedTypes.map(feedType => [[feedType], []])),
+  function getItem(id: number) {
+    return items.value.find(item => item.id === id)
+  }
+
+  function getItems(ids: number[]) {
+    return items.value.filter(item => ids.includes(item.id))
+  }
+
+  function getFeed(feedType: FeedType, page = 1) {
+    return items.value.filter(item => feeds.value[feedType].slice(0, page * 30).includes(item.id))
+  }
+
+  async function fetchItem(id: number) {
+    const item = await api.fetchItem(id)
+    items.value.push(item)
+  }
+
+  async function fetchItems(ids: number[]) {
+    // filter out ids that don't need to be fetched
+    const idsToFetch = ids.filter(id => !items.value.find(item => item.id === id))
+
+    if (idsToFetch.length) {
+      const fetchedItems = await api.fetchItems(idsToFetch)
+      fetchedItems.forEach(item => items.value.push(item))
     }
-  },
-  getters: {
-    getItem: (state) => {
-      return (id: number) => state.items.find(item => item.id === id)
-    },
-    getItems: (state) => {
-      return (ids: number[]) => state.items.filter(item => ids.includes(item.id))
-    },
-    getFeed: (state) => {
-      return (feedType: FeedType, page: number) => state.items.filter(item => state.feeds[feedType].slice(0, page * 30).includes(item.id))
-    },
-  },
-  actions: {
-    async fetchItem(id: number) {
-      const item = await api.fetchItem(id)
-      this.items.push(item)
-    },
-    async fetchItems(ids: number[]) {
-      // filter out ids that don't need to be fetched
-      const idsToFetch = ids.filter(id => !this.items.find(item => item.id === id))
+  }
 
-      if (idsToFetch.length > 0) {
-        const items = await api.fetchItems(idsToFetch)
-        items.forEach(item => this.items.push(item))
-      }
-    },
-    async fetchFeed(feedType: FeedType, page = 1) {
-      // Fetch feed if needed
-      if (!this.feeds[feedType].length) {
-        // Bookmarks feed doesn't need to be fetched with api
-        const storageStore = useStorageStore()
-        const feedIds = feedType === 'bookmarks' ? storageStore.bookmarks.map(x => x.id) : await api.fetchFeed(feedType)
+  async function fetchFeed(feedType: FeedType, page = 1) {
+    // Fetch feed if needed
+    if (!feeds.value[feedType].length) {
+      // Bookmarks feed doesn't need to be fetched
+      const feedIds = feedType === 'bookmarks' ? storage.bookmarks.map(bookmark => bookmark.id) : await api.fetchFeed(feedType)
 
-        this.feeds[feedType] = feedIds
-      }
+      feeds.value[feedType] = feedIds
+    }
 
-      // Get ids of current page
-      const ids = this.feeds[feedType].slice((page - 1) * 30, page * 30)
+    // Get  ids of current page
+    const ids = feeds.value[feedType].slice((page - 1) * 30, page * 30)
 
-      await this.fetchItems(ids)
-    },
-    addBookmark(item: Item) {
-      this.feeds.bookmarks.push(item.id)
+    await fetchItems(ids)
+  }
 
-      const storageStore = useStorageStore()
-      storageStore.addBookmark(item.id)
-    },
-    removeBookmark(item: Item) {
-      this.feeds.bookmarks = this.feeds.bookmarks.filter(x => x !== item.id)
+  function addBookmark(item: Item) {
+    feeds.value.bookmarks.push(item.id)
+    storage.addBookmark(item.id)
+  }
 
-      const storageStore = useStorageStore()
-      storageStore.removeBookmark(item.id)
-    },
-  },
+  function removeBookmark(item: Item) {
+    feeds.value.bookmarks = feeds.value.bookmarks.filter(id => id !== item.id)
+    storage.removeBookmark(item.id)
+  }
+
+  return { items, feeds, getItem, getItems, getFeed, fetchItem, fetchItems, fetchFeed, addBookmark, removeBookmark }
 })
