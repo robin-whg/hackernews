@@ -1,18 +1,19 @@
 export const useStorageStore = defineStore('storage', () => {
   const openItemsInNewTab = ref(false)
-  const bookmarks = ref<Bookmark[]>([])
+  // HACK: Keys in local storage are always a string, so to avoid problems, I convert the id
+  const bookmarks = ref<Record<string, Bookmark>>({})
 
-  function isBookmarked(id: number) {
-    return bookmarks.value.find(bookmark => bookmark.id === id)
+  function isBookmarked(id: string) {
+    return !!bookmarks.value[id]
   }
 
-  function addBookmark(id: number) {
+  function addBookmark(id: string) {
     if (!isBookmarked(id))
-      bookmarks.value.push({ id, timestamp: Date.now() })
+      bookmarks.value[id] = { id: +id, timestamp: Date.now() }
   }
 
-  function removeBookmark(id: number) {
-    bookmarks.value = bookmarks.value.filter(bookmark => bookmark.id !== id)
+  function removeBookmark(id: string) {
+    delete bookmarks.value[id]
   }
 
   return {
@@ -22,4 +23,5 @@ export const useStorageStore = defineStore('storage', () => {
     addBookmark,
     removeBookmark,
   }
-}, { persist: { storage: localStorage } })
+}, { persist: { storage: localStorage },
+})

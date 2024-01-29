@@ -73,7 +73,7 @@ const store = useContentStore()
 
         <!-- HACK: isBookmarked and addBookmark should be from the same source -->
         <BaseButton
-          v-if="!storage.isBookmarked(item.id)"
+          v-if="!storage.isBookmarked(item.id.toString())"
           sm
           icon="i-tabler-bookmark"
           @click="store.addBookmark(item)"

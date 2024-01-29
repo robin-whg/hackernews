@@ -36,7 +36,10 @@ export const useContentStore = defineStore('content', () => {
     // Fetch feed if needed
     if (!feeds.value[feedType].length) {
       // Bookmarks feed doesn't need to be fetched
-      const feedIds = feedType === 'bookmarks' ? storage.bookmarks.map(bookmark => bookmark.id) : await api.fetchFeed(feedType)
+      // HACK: local Storage key can only be safed as a string, so I need to convert the id or it is false when I get it from localStorage
+      const feedIds = feedType === 'bookmarks'
+        ? Object.keys(storage.bookmarks).map(id => +id)
+        : await api.fetchFeed(feedType)
 
       feeds.value[feedType] = feedIds
     }
@@ -49,12 +52,12 @@ export const useContentStore = defineStore('content', () => {
 
   function addBookmark(item: Item) {
     feeds.value.bookmarks.push(item.id)
-    storage.addBookmark(item.id)
+    storage.addBookmark(item.id.toString())
   }
 
   function removeBookmark(item: Item) {
     feeds.value.bookmarks = feeds.value.bookmarks.filter(id => id !== item.id)
-    storage.removeBookmark(item.id)
+    storage.removeBookmark(item.id.toString())
   }
 
   return { items, feeds, getItem, getItems, getFeed, fetchItem, fetchItems, fetchFeed, addBookmark, removeBookmark }
