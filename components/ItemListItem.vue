@@ -55,36 +55,35 @@ const store = useContentStore()
         {{ timeAgo(item.time) }} ago
       </span>
 
-      <template v-if="item.descendants !== undefined">
-        <div class="i-tabler-slash h-4 w-4 flex-none" />
+      <div class="i-tabler-slash h-4 w-4 flex-none" />
 
-        <BaseButton
-          as="NuxtLink"
-          :target
-          sm
-          :to="`https://news.ycombinator.com/item?id=${item.id}`"
-          icon="i-tabler-message-circle"
-        >
-          {{ item.descendants }}
-          <span class="hidden md:block">
-            {{ item.descendants === 1 ? 'comment' : 'comments' }}
-          </span>
-        </BaseButton>
+      <BaseButton
+        v-if="item.descendants !== undefined"
+        as="NuxtLink"
+        :target
+        sm
+        :to="`https://news.ycombinator.com/item?id=${item.id}`"
+        icon="i-tabler-message-circle"
+      >
+        {{ item.descendants }}
+        <span class="hidden md:block">
+          {{ item.descendants === 1 ? 'comment' : 'comments' }}
+        </span>
+      </BaseButton>
 
-        <!-- HACK: isBookmarked and addBookmark should be from the same source -->
-        <BaseButton
-          v-if="!storage.isBookmarked(item.id.toString())"
-          sm
-          icon="i-tabler-bookmark"
-          @click="store.addBookmark(item)"
-        >
-          bookmark
-        </BaseButton>
+      <!-- HACK: isBookmarked and addBookmark should be from the same source -->
+      <BaseButton
+        v-if="!storage.isBookmarked(item.id.toString())"
+        sm
+        icon="i-tabler-bookmark"
+        @click="store.addBookmark(item)"
+      >
+        bookmark
+      </BaseButton>
 
-        <BaseButton v-else icon="i-tabler-bookmark-minus" sm @click="store.removeBookmark(item)">
-          remove
-        </BaseButton>
-      </template>
+      <BaseButton v-else icon="i-tabler-bookmark-minus" sm @click="store.removeBookmark(item)">
+        remove
+      </BaseButton>
     </div>
   </div>
 </template>
