@@ -1,3 +1,9 @@
+<script setup lang="ts">
+const route = useRoute()
+
+const currentFeedType = computed(() => route.params.feed as FeedType)
+</script>
+
 <template>
   <HeadlessDisclosure v-slot="{ open }" as="nav" class="z-10 mx-auto bg-zinc-900 px-3">
     <div class="mx-auto container">
@@ -20,15 +26,10 @@
               <NuxtLink
                 v-for="feedType in feedTypes" :key="feedType" :to="`/${feedType}`"
                 class="rounded-lg px-3 py-1.5 font-semibold transition duration-100 hover:text-orange-600"
+                :class="{ 'text-orange-600': currentFeedType === feedType }"
               >
                 {{ feedType }}
               </NuxtLink>
-              <!-- <NuxtLink -->
-              <!--   to="/bookmarks" -->
-              <!--   class="rounded-lg px-3 py-1.5 font-semibold transition duration-100 hover:text-orange-600" -->
-              <!-- > -->
-              <!--   bookmarks -->
-              <!-- </NuxtLink> -->
             </div>
           </div>
         </div>
@@ -42,17 +43,11 @@
             v-for="feedType in feedTypes"
             :key="feedType" :to="`/${feedType}`"
             class="block rounded-lg px-3 py-1.5 text-center font-semibold transition duration-100 hover:text-orange-600"
+            :class="{ 'text-orange-600': currentFeedType === feedType }"
             @click="close"
           >
             {{ feedType }}
           </NuxtLink>
-          <!-- <NuxtLink -->
-          <!--   to="/bookmarks" -->
-          <!--   class="block rounded-lg px-3 py-1.5 text-center font-semibold transition duration-100 hover:text-orange-600" -->
-          <!--   @click="close" -->
-          <!-- > -->
-          <!--   bookmarks -->
-          <!-- </NuxtLink> -->
         </div>
       </HeadlessDisclosurePanel>
     </div>
