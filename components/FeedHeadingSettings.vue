@@ -5,7 +5,7 @@ const storage = useStorageStore()
 <template>
   <HeadlessMenu v-slot="{ open }" as="div" class="relative inline-block text-left">
     <HeadlessMenuButton as="template">
-      <BaseButton icon="i-tabler-dots-vertical" :class="{ 'bg-zinc-800/75': open }" />
+      <BaseButton icon="i-tabler-dots-vertical" aria-label="item settings" :class="{ 'bg-zinc-800/75': open }" />
     </HeadlessMenuButton>
 
     <transition

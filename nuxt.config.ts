@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['types'],
   },
-  modules: ['@unocss/nuxt', '@pinia/nuxt', '@pinia-plugin-persistedstate/nuxt', 'nuxt-headlessui', '@nuxtjs/robots'],
+  modules: ['@unocss/nuxt', '@pinia/nuxt', '@pinia-plugin-persistedstate/nuxt', 'nuxt-headlessui', '@nuxtjs/robots', '@vueuse/nuxt'],
   unocss: {
     preflight: true,
   },
