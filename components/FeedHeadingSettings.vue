@@ -5,7 +5,7 @@ const storage = useStorageStore()
 <template>
   <HeadlessMenu v-slot="{ open }" as="div" class="relative inline-block text-left">
     <HeadlessMenuButton as="template">
-      <BaseButton icon="i-tabler-dots-vertical" :class="{ 'bg-zinc-800': open }" />
+      <BaseButton icon="i-tabler-dots-vertical" :class="{ 'bg-zinc-800/75': open }" />
     </HeadlessMenuButton>
 
     <transition
@@ -17,7 +17,7 @@ const storage = useStorageStore()
       leave-to-class="transform opacity-0"
     >
       <HeadlessMenuItems
-        class="absolute right-0 mt-3 w-64 origin-top-right rounded-xl bg-zinc-800/75 shadow-md backdrop-blur focus:outline-none"
+        class="absolute right-0 z-20 mt-1.5 w-64 origin-top-right rounded-xl bg-zinc-800/75 shadow-md backdrop-blur focus:outline-none"
       >
         <div class="p-1.5">
           <HeadlessMenuItem as="div" @click.prevent>

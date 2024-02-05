@@ -23,21 +23,24 @@ const isEnd = computed(() => {
 </script>
 
 <template>
-  <div class="mx-auto flex flex-col items-center gap-6 container">
-    <ItemList class="max-w-2xl" :items="store.getFeed(feedType, page)" />
+  <div class="flex flex-col">
+    <FeedHeading />
+    <div class="mx-auto max-w-2xl w-full px-3">
+      <ItemList class="mb-6" :items="store.getFeed(feedType, page)" />
 
-    <template v-if="!isEnd">
-      <template v-if="loading">
-        <div class="flex items-center gap-1.5 px-3 py-1.5 text-sm">
-          <div class="i-tabler-loader-2 h-4 w-4 flex-none animate-spin" />
-          loading…
-        </div>
+      <template v-if="!isEnd">
+        <template v-if="loading">
+          <div class="flex items-center gap-1.5 px-3 py-1.5 text-sm">
+            <div class="i-tabler-loader-2 h-4 w-4 flex-none animate-spin" />
+            loading…
+          </div>
+        </template>
+        <template v-else>
+          <BaseButton :disabled="loading" icon="i-tabler-arrow-down" @click="loadMore">
+            load more
+          </BaseButton>
+        </template>
       </template>
-      <template v-else>
-        <BaseButton :disabled="loading" icon="i-tabler-arrow-down" @click="loadMore">
-          load more
-        </BaseButton>
-      </template>
-    </template>
+    </div>
   </div>
 </template>

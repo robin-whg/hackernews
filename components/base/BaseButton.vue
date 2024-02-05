@@ -3,10 +3,12 @@ interface Props {
   as?: 'button' | 'NuxtLink'
   sm?: boolean
   icon?: string
+  iconRight?: boolean
 }
 const props = withDefaults(defineProps<Props>(), {
   as: 'button',
   sm: false,
+  iconRight: false,
 })
 const { as, sm, icon } = toRefs(props)
 
@@ -29,7 +31,8 @@ const style = computed(() => {
 
 <template>
   <component :is="componentType" class="flex items-center text-sm font-medium transition duration-100 ease-in-out hover:bg-orange-600/5 hover:text-orange-600" :class="style">
-    <div v-if="icon" class="flex-none" :class="[icon, sm ? 'h-4 w-4' : 'h-5 w-5']" />
+    <div v-if="icon && !iconRight" class="flex-none" :class="[icon, sm ? 'h-4 w-4' : 'h-5 w-5']" />
     <slot />
+    <div v-if="icon && iconRight" class="flex-none" :class="[icon, sm ? 'h-4 w-4' : 'h-5 w-5']" />
   </component>
 </template>

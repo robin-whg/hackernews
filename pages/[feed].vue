@@ -13,12 +13,14 @@ useHead({
 </script>
 
 <template>
-  <div class="mx-auto max-w-2xl w-full flex flex-col items-center gap-6 container">
+  <div class="flex flex-col gap-6">
     <Suspense>
       <Feed :feed-type="feedType" />
 
       <template #fallback>
-        <ItemListSkeleton v-for="i in 30" :key="i" />
+        <div class="mx-auto max-w-2xl w-full px-3">
+          <ItemListSkeleton v-for="i in 30" :key="i" />
+        </div>
       </template>
     </Suspense>
   </div>
