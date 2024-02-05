@@ -28,7 +28,7 @@ const isEnd = computed(() => {
     <div class="mx-auto max-w-2xl w-full px-3">
       <ItemList class="mb-6" :items="store.getFeed(feedType, page)" />
 
-      <template v-if="!isEnd">
+      <div v-if="!isEnd" class="w-full flex justify-center">
         <template v-if="loading">
           <div class="flex items-center gap-1.5 px-3 py-1.5 text-sm">
             <div class="i-tabler-loader-2 h-4 w-4 flex-none animate-spin" />
@@ -40,7 +40,7 @@ const isEnd = computed(() => {
             load more
           </BaseButton>
         </template>
-      </template>
+      </div>
     </div>
   </div>
 </template>
