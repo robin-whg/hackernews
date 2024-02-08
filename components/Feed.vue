@@ -6,7 +6,11 @@ const page = ref(1)
 
 const store = useContentStore()
 
-await store.fetchFeed(feedType.value, page.value)
+// await store.fetchFeed(feedType.value, page.value)
+const { isReady } = useAsyncState(
+  () => store.fetchFeed(feedType.value, page.value),
+  null,
+)
 
 const loading = ref(false)
 
@@ -25,20 +29,29 @@ const isEnd = computed(() => {
 <template>
   <div class="flex flex-col">
     <FeedHeading />
-    <ItemList class="border-b border-zinc-800" :items="store.getFeed(feedType, page)" />
 
-    <div v-if="!isEnd" class="w-full flex justify-center p-3">
-      <template v-if="loading">
-        <div class="flex items-center gap-1.5 px-3 py-1.5 text-sm">
-          <div class="i-tabler-loader-2 h-4 w-4 flex-none animate-spin" />
-          loading…
-        </div>
-      </template>
-      <template v-else>
-        <BaseButton :disabled="loading" icon="i-tabler-arrow-down" @click="loadMore">
-          load more
-        </BaseButton>
-      </template>
-    </div>
+    <template v-if="isReady">
+      <ItemList class="border-b border-zinc-800" :items="store.getFeed(feedType, page)" />
+
+      <div v-if="!isEnd" class="w-full flex justify-center p-3">
+        <template v-if="loading">
+          <div class="flex items-center gap-1.5 px-3 py-1.5 text-sm">
+            <div class="i-tabler-loader-2 h-4 w-4 flex-none animate-spin" />
+            loading…
+          </div>
+        </template>
+        <template v-else>
+          <BaseButton :disabled="loading" icon="i-tabler-arrow-down" @click="loadMore">
+            load more
+          </BaseButton>
+        </template>
+      </div>
+    </template>
+
+    <template v-else>
+      <div class="flex flex-col divide-y divide-zinc-800">
+        <ItemListSkeleton v-for="i in 30" :key="i" />
+      </div>
+    </template>
   </div>
 </template>
