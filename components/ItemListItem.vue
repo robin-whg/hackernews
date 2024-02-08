@@ -35,7 +35,7 @@ function toggleBookmark() {
 </script>
 
 <template>
-  <div class="flex flex-col p-3">
+  <div class="flex flex-col p-3 transition duration-100 ease-in-out md:hover:bg-zinc-800/75">
     <div class="">
       <div class="h-6 flex items-center gap-1.5 text-sm text-zinc-400">
         <BaseItemBadge :item="item" />

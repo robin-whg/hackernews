@@ -30,7 +30,7 @@ const style = computed(() => {
 </script>
 
 <template>
-  <component :is="componentType" class="flex items-center text-sm font-medium transition duration-100 ease-in-out hover:bg-orange-600/5 hover:text-orange-600" :class="style">
+  <component :is="componentType" class="flex items-center text-sm font-medium transition duration-100 ease-in-out md:hover:bg-orange-600/5 md:hover:text-orange-600" :class="style">
     <div v-if="icon && !iconRight" class="flex-none" :class="[icon, sm ? 'h-4 w-4' : 'h-5 w-5']" />
     <slot />
     <div v-if="icon && iconRight" class="flex-none" :class="[icon, sm ? 'h-4 w-4' : 'h-5 w-5']" />
