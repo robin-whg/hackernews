@@ -5,7 +5,7 @@ const { items } = toRefs(props)
 
 <template>
   <div>
-    <ol v-if="items.length" class="flex flex-col">
+    <ol v-if="items.length" class="flex flex-col divide-y divide-zinc-800">
       <template v-for="item in items" :key="item.id">
         <li>
           <ItemListItem :item="item" />

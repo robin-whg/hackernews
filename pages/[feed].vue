@@ -18,7 +18,7 @@ useHead({
       <Feed :feed-type="feedType" />
 
       <template #fallback>
-        <div class="mx-auto max-w-2xl w-full px-3">
+        <div class="w-full px-3">
           <ItemListSkeleton v-for="i in 30" :key="i" />
         </div>
       </template>

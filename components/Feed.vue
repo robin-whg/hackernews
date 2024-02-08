@@ -25,22 +25,20 @@ const isEnd = computed(() => {
 <template>
   <div class="flex flex-col">
     <FeedHeading />
-    <div class="mx-auto max-w-2xl w-full px-3">
-      <ItemList class="mb-6" :items="store.getFeed(feedType, page)" />
+    <ItemList class="border-b border-zinc-800" :items="store.getFeed(feedType, page)" />
 
-      <div v-if="!isEnd" class="w-full flex justify-center">
-        <template v-if="loading">
-          <div class="flex items-center gap-1.5 px-3 py-1.5 text-sm">
-            <div class="i-tabler-loader-2 h-4 w-4 flex-none animate-spin" />
-            loading…
-          </div>
-        </template>
-        <template v-else>
-          <BaseButton :disabled="loading" icon="i-tabler-arrow-down" @click="loadMore">
-            load more
-          </BaseButton>
-        </template>
-      </div>
+    <div v-if="!isEnd" class="w-full flex justify-center p-3">
+      <template v-if="loading">
+        <div class="flex items-center gap-1.5 px-3 py-1.5 text-sm">
+          <div class="i-tabler-loader-2 h-4 w-4 flex-none animate-spin" />
+          loading…
+        </div>
+      </template>
+      <template v-else>
+        <BaseButton :disabled="loading" icon="i-tabler-arrow-down" @click="loadMore">
+          load more
+        </BaseButton>
+      </template>
     </div>
   </div>
 </template>

@@ -11,8 +11,8 @@ watch(selectedFeedType, (newSelectedFeedType, oldSelectedFeedType) => {
 </script>
 
 <template>
-  <div class="sticky top-0 z-10 bg-zinc-900/75 backdrop-blur">
-    <div class="mx-auto max-w-2xl flex flex justify-between px-3 py-1.5">
+  <div class="sticky top-0 z-10 border-b border-zinc-800 bg-zinc-900/75 backdrop-blur">
+    <div class="mx-auto max-w-2xl flex flex justify-between p-1.5">
       <div>
         <HeadlessListbox v-slot="{ open }" v-model="selectedFeedType">
           <div class="relative w-32">
