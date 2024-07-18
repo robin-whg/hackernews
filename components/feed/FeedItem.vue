@@ -20,22 +20,28 @@ const title = computed(() => {
 
 const storage = useStorageStore()
 
-const target = computed(() => storage.openItemsInNewTab ? '_blank' : '_self')
+const target = computed(() => (storage.openItemsInNewTab ? '_blank' : '_self'))
 
 const store = useContentStore()
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const mdAndLarger = breakpoints.greaterOrEqual('md')
 
-const isBookmarked = computed(() => storage.isBookmarked(item.value.id.toString()))
+const isBookmarked = computed(() =>
+  storage.isBookmarked(item.value.id.toString()),
+)
 
 function toggleBookmark() {
-  isBookmarked.value ? store.removeBookmark(item.value) : store.addBookmark(item.value)
+  return isBookmarked.value
+    ? store.removeBookmark(item.value)
+    : store.addBookmark(item.value)
 }
 </script>
 
 <template>
-  <div class="flex flex-col p-3 transition duration-100 ease-in-out md:hover:bg-zinc-800/75">
+  <div
+    class="flex flex-col p-3 transition duration-100 ease-in-out md:hover:bg-zinc-800/75"
+  >
     <div>
       <div class="h-6 flex items-center gap-1.5 text-sm text-zinc-400">
         <BaseItemBadge :item="item" />
@@ -50,7 +56,11 @@ function toggleBookmark() {
       </div>
 
       <template v-if="item.url">
-        <NuxtLink :target :to="item.url" class="line-clamp-2 text-zinc-50 md:text-lg visited:text-zinc-400">
+        <NuxtLink
+          :target
+          :to="item.url"
+          class="line-clamp-2 text-zinc-50 md:text-lg visited:text-zinc-400"
+        >
           {{ title }}
         </NuxtLink>
       </template>
@@ -62,8 +72,13 @@ function toggleBookmark() {
 
       <div class="h-6 flex items-center text-sm text-zinc-400">
         <span class="truncate pr-1.5">
-          {{ item.score }} {{ item.score === 1 ? 'point' : 'points' }} by
-          <NuxtLink :target class="hover:underline" :to="`https://news.ycombinator.com/user?id=${item.by}`">{{ item.by }} </NuxtLink>
+          {{ item.score }} {{ item.score === 1 ? "point" : "points" }} by
+          <NuxtLink
+            :target
+            class="hover:underline"
+            :to="`https://news.ycombinator.com/user?id=${item.by}`"
+          >{{ item.by }}
+          </NuxtLink>
           {{ timeAgo(item.time) }} ago
         </span>
 
@@ -81,13 +96,20 @@ function toggleBookmark() {
           >
             {{ item.descendants }}
             <span class="hidden md:block">
-              {{ item.descendants === 1 ? 'comment' : 'comments' }}
+              {{ item.descendants === 1 ? "comment" : "comments" }}
             </span>
           </BaseButton>
 
           <!-- HACK: isBookmarked and addBookmark should be from the same source -->
-          <BaseButton sm :icon="isBookmarked ? 'i-tabler-bookmark-filled' : 'i-tabler-bookmark'" :class="{ 'text-orange-600': isBookmarked }" @click="toggleBookmark()">
-            {{ isBookmarked ? 'remove' : 'bookmark' }}
+          <BaseButton
+            sm
+            :icon="
+              isBookmarked ? 'i-tabler-bookmark-filled' : 'i-tabler-bookmark'
+            "
+            :class="{ 'text-orange-600': isBookmarked }"
+            @click="toggleBookmark()"
+          >
+            {{ isBookmarked ? "remove" : "bookmark" }}
           </BaseButton>
         </template>
       </div>
@@ -105,7 +127,12 @@ function toggleBookmark() {
         {{ item.descendants }}
       </BaseButton>
 
-      <BaseButton :icon="isBookmarked ? 'i-tabler-bookmark-filled' : 'i-tabler-bookmark'" :class="{ 'text-orange-600': isBookmarked }" aria-label="bookmark" @click="toggleBookmark()" />
+      <BaseButton
+        :icon="isBookmarked ? 'i-tabler-bookmark-filled' : 'i-tabler-bookmark'"
+        :class="{ 'text-orange-600': isBookmarked }"
+        aria-label="bookmark"
+        @click="toggleBookmark()"
+      />
     </div>
   </div>
 </template>
