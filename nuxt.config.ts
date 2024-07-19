@@ -16,10 +16,17 @@ export default defineNuxtConfig({
     dirs: ['types'],
   },
 
-  modules: ['@unocss/nuxt', '@pinia/nuxt', '@pinia-plugin-persistedstate/nuxt', 'nuxt-headlessui', '@nuxtjs/robots', '@vueuse/nuxt'],
+  modules: [
+    '@pinia/nuxt',
+    '@pinia-plugin-persistedstate/nuxt',
+    'nuxt-headlessui',
+    '@nuxtjs/robots',
+    '@vueuse/nuxt',
+    '@nuxt/ui',
+  ],
 
-  unocss: {
-    preflight: true,
+  ui: {
+    icons: {},
   },
 
   compatibilityDate: '2024-07-18',

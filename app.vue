@@ -19,13 +19,13 @@ useHead({
     { name: 'theme-color', content: '#18181b' },
   ],
   bodyAttrs: {
-    class: 'bg-zinc-900 text-zinc-50 font-sans',
+    class: 'bg-gray-900 text-gray-50 font-sans',
   },
 })
 </script>
 
 <template>
-  <NuxtLoadingIndicator color="false" class="bg-orange-600" />
+  <NuxtLoadingIndicator color="false" class="bg-orange-400" />
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>

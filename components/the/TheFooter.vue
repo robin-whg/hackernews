@@ -1,15 +1,15 @@
 <template>
   <div class="flex justify-between p-3">
-    <div class="text-sm text-zinc-400">
+    <div class="text-sm text-gray-300 flex items-center gap-1.5">
       2024
-      <NuxtLink to="https://robin-whg.com" target="_blank" class="hover:underline">
+      <ULink to="https://robin-whg.com" target="_blank" class="hover:underline">
         robin-whg
-      </NuxtLink>
+      </ULink>
     </div>
     <div>
-      <BaseButton as="NuxtLink" sm target="_blank" to="https://github.com/robin-whg/hackernews" icon="i-tabler-brand-github">
+      <UButton icon="i-tabler-brand-github" variant="ghost" color="gray" size="sm" target="_blank" to="https://github.com/robin-whg/hackernews">
         Github
-      </BaseButton>
+      </UButton>
     </div>
   </div>
 </template>

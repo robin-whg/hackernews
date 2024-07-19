@@ -40,14 +40,14 @@ function toggleBookmark() {
 
 <template>
   <div
-    class="flex flex-col p-3 transition duration-100 ease-in-out md:hover:bg-zinc-800/75"
+    class="flex flex-col p-3 transition duration-100 ease-in-out"
   >
     <div>
-      <div class="h-6 flex items-center gap-1.5 text-sm text-zinc-400">
+      <div class="h-6 flex items-center gap-1.5 text-sm text-gray-400">
         <BaseItemBadge :item="item" />
 
         <template v-if="item.url">
-          <div class="i-tabler-slash h-4 w-4 flex-none" />
+          <UIcon name="i-tabler-slash" class="text-gray-300" />
 
           <p>
             {{ host(item.url) }}
@@ -56,13 +56,13 @@ function toggleBookmark() {
       </div>
 
       <template v-if="item.url">
-        <NuxtLink
+        <ULink
           :target
           :to="item.url"
-          class="line-clamp-2 text-zinc-50 md:text-lg visited:text-zinc-400"
+          class="line-clamp-2 text-gray-50 md:text-lg visited:text-gray-400"
         >
           {{ title }}
-        </NuxtLink>
+        </ULink>
       </template>
       <template v-else>
         <p class="line-clamp-2 md:text-lg">
@@ -70,67 +70,51 @@ function toggleBookmark() {
         </p>
       </template>
 
-      <div class="h-6 flex items-center text-sm text-zinc-400">
+      <div class="h-6 flex items-center text-sm text-gray-300">
         <span class="truncate pr-1.5">
           {{ item.score }} {{ item.score === 1 ? "point" : "points" }} by
-          <NuxtLink
+          <ULink
             :target
             class="hover:underline"
             :to="`https://news.ycombinator.com/user?id=${item.by}`"
           >{{ item.by }}
-          </NuxtLink>
+          </ULink>
           {{ timeAgo(item.time) }} ago
         </span>
 
         <template v-if="mdAndLarger">
-          <div class="i-tabler-slash h-4 w-4 flex-none" />
+          <UIcon name="i-tabler-slash" class="text-gray-300" />
 
-          <BaseButton
-            v-if="item.descendants !== undefined"
-            as="NuxtLink"
-            :target
-            sm
-            :to="`https://news.ycombinator.com/item?id=${item.id}`"
-            icon="i-tabler-message-circle"
-            class="mr-1.5"
-          >
+          <UButton variant="ghost" color="gray" size="xs" :target :to="`https://news.ycombinator.com/item?id=${item.id}`" icon="i-tabler-message-circle">
             {{ item.descendants }}
-            <span class="hidden md:block">
-              {{ item.descendants === 1 ? "comment" : "comments" }}
-            </span>
-          </BaseButton>
+            <span v-if="item.descendants === 1">comment</span>
+            <span v-else>comments</span>
+          </UButton>
 
           <!-- HACK: isBookmarked and addBookmark should be from the same source -->
-          <BaseButton
-            sm
+          <UButton
+            variant="ghost" :color="isBookmarked ? 'orange' : 'gray'" size="xs"
             :icon="
               isBookmarked ? 'i-tabler-bookmark-filled' : 'i-tabler-bookmark'
             "
-            :class="{ 'text-orange-600': isBookmarked }"
             @click="toggleBookmark()"
           >
             {{ isBookmarked ? "remove" : "bookmark" }}
-          </BaseButton>
+          </UButton>
         </template>
       </div>
     </div>
 
     <div v-if="!mdAndLarger" class="flex justify-end gap-1.5">
-      <BaseButton
-        v-if="item.descendants !== undefined"
-        as="NuxtLink"
-        :target
-        :to="`https://news.ycombinator.com/item?id=${item.id}`"
-        icon="i-tabler-message-circle"
-        :aria-label="`${item.descendants} comments`"
-      >
+      <UButton variant="ghost" color="gray" :target :to="`https://news.ycombinator.com/item?id=${item.id}`" icon="i-tabler-message-circle">
         {{ item.descendants }}
-      </BaseButton>
+      </UButton>
 
-      <BaseButton
-        :icon="isBookmarked ? 'i-tabler-bookmark-filled' : 'i-tabler-bookmark'"
-        :class="{ 'text-orange-600': isBookmarked }"
-        aria-label="bookmark"
+      <UButton
+        variant="ghost" :color="isBookmarked ? 'orange' : 'gray'" size="xs"
+        :icon="
+          isBookmarked ? 'i-tabler-bookmark-filled' : 'i-tabler-bookmark'
+        "
         @click="toggleBookmark()"
       />
     </div>

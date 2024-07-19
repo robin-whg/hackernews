@@ -34,7 +34,7 @@ const { isLoading: loadingMore, execute: loadMore } = useAsyncState(
     <FeedHeading />
 
     <template v-if="isReady">
-      <ol v-if="items.length" class="flex flex-col border-b border-zinc-800 divide-y divide-zinc-800">
+      <ol v-if="items.length" class="flex flex-col border-b border-gray-800 divide-y divide-gray-800">
         <li v-for="item in items" :key="item.id">
           <FeedItem :item="item" />
         </li>
@@ -45,17 +45,13 @@ const { isLoading: loadingMore, execute: loadMore } = useAsyncState(
       </p>
 
       <div v-if="!isEnd" class="w-full flex justify-center p-3">
-        <div v-if="loadingMore" class="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium">
-          <div class="i-tabler-loader-2 h-4 w-4 flex-none animate-spin" />
-          loading…
-        </div>
-        <BaseButton v-else :disabled="loadingMore" icon="i-tabler-arrow-down" @click="loadMore()">
+        <UButton :loading="loadingMore" icon="i-tabler-arrow-down" variant="ghost" color="gray" @click="loadMore()">
           load more
-        </BaseButton>
+        </UButton>
       </div>
     </template>
 
-    <ol v-else class="flex flex-col border-b border-zinc-800 divide-y divide-zinc-800">
+    <ol v-else class="flex flex-col border-b border-gray-800 divide-y divide-gray-800">
       <li v-for="i in 30" :key="i">
         <FeedSkeleton />
       </li>
