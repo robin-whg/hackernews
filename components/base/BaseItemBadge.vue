@@ -19,7 +19,7 @@ const type = computed(() => {
 
 <template>
   <UBadge variant="soft" size="xs" class="flex gap-1.5" :color="type[1]">
-    <div class="h-1.5 w-1.5 rounded-full" :class="`bg-${type[1]}-400`" />
+    <div class="h-1.5 w-1.5 rounded-full" :class="`bg-${type[1]}-500 dark:bg-${type[1]}-400`" />
     {{ type[0] }}
   </UBadge>
 </template>

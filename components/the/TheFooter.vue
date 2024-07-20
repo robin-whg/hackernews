@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-between p-3">
-    <div class="text-sm text-gray-300 flex items-center gap-1.5">
+    <div class="text-sm text-gray-700 dark:text-gray-200 flex items-center gap-1.5">
       2024
       <ULink to="https://robin-whg.com" target="_blank" class="hover:underline">
         robin-whg

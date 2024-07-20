@@ -40,13 +40,13 @@ function toggleBookmark() {
 
 <template>
   <div
-    class="flex flex-col p-3 transition duration-100 ease-in-out hover:bg-gray-900 gap-1.5"
+    class="flex flex-col p-3 transition duration-100 ease-in-out gap-1.5"
   >
-    <div class="h-6 flex items-center gap-1.5 text-sm text-gray-300">
+    <div class="h-6 flex items-center gap-1.5 text-sm text-gray-700 dark:text-gray-200">
       <BaseItemBadge :item="item" />
 
       <template v-if="item.url">
-        <UIcon name="i-tabler-slash" class="text-gray-300" />
+        <UIcon name="i-tabler-slash" class="text-gray-700 dark:text-gray-200" />
 
         <p>
           {{ host(item.url) }}
@@ -58,7 +58,7 @@ function toggleBookmark() {
       <ULink
         :target
         :to="item.url"
-        class="line-clamp-2 md:text-lg visited:text-gray-300 font-semibold hover:underline"
+        class="line-clamp-2 md:text-lg visited:text-gray-700 visited:dark:text-gray-200 font-semibold hover:underline"
       >
         {{ title }}
       </ULink>
@@ -69,7 +69,7 @@ function toggleBookmark() {
       </p>
     </template>
 
-    <div class="h-6 flex items-center text-sm text-gray-300">
+    <div class="h-6 flex items-center text-sm text-gray-700 dark:text-gray-200">
       <span class="truncate pr-1.5">
         {{ item.score }} {{ item.score === 1 ? "point" : "points" }} by
         <ULink
@@ -82,7 +82,7 @@ function toggleBookmark() {
       </span>
 
       <template v-if="mdAndLarger">
-        <UIcon name="i-tabler-slash" class="text-gray-300" />
+        <UIcon name="i-tabler-slash" class="text-gray-700 dark:text-gray-200" />
 
         <UButton variant="ghost" color="gray" size="xs" :target :to="`https://news.ycombinator.com/item?id=${item.id}`" icon="i-tabler-message-circle">
           {{ item.descendants }}

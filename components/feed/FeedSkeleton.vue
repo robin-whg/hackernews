@@ -10,7 +10,7 @@ const mdAndLarger = breakpoints.greaterOrEqual('md')
     <div class="h-6 flex items-center gap-1.5">
       <USkeleton class="h-5 w-10" />
 
-      <UIcon name="i-tabler-slash" class="text-gray-300" />
+      <UIcon name="i-tabler-slash" class="text-gray-200 dark:text-gray-700" />
 
       <USkeleton class="h-5 w-20" />
     </div>
@@ -23,7 +23,7 @@ const mdAndLarger = breakpoints.greaterOrEqual('md')
       <USkeleton class="h-5 w-48" />
 
       <template v-if="mdAndLarger">
-        <UIcon name="i-tabler-slash" class="text-gray-300" />
+        <UIcon name="i-tabler-slash" class="text-gray-200 dark:text-gray-700" />
 
         <USkeleton class="h-5 w-24" />
         <USkeleton class="h-5 w-20" />

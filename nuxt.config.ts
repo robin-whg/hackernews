@@ -29,6 +29,10 @@ export default defineNuxtConfig({
     icons: {},
   },
 
+  colorMode: {
+    preference: 'system',
+  },
+
   fonts: {
     families: [
       { name: 'Inter', provider: 'bunny', weights: [400, 600] },
