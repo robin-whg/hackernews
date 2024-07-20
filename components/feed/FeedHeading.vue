@@ -29,6 +29,11 @@ watch(selectedFeedType, (newSelectedFeedType, oldSelectedFeedType) => {
     router.push(`/${selectedFeedType.value}`)
 })
 
+const { y } = useWindowScroll()
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+
 const colorMode = useColorMode()
 const isDark = computed({
   get() {
@@ -55,6 +60,8 @@ const items = [[{
       <USelectMenu v-model="selectedFeedType" :options class="w-28" :ui-menu="{ option: { selectedIcon: { base: `h-5 w-5 text-${selectedFeedTypeIconColor}-500 dark:text-${selectedFeedTypeIconColor}-400 flex-shrink-0` } } }" />
     </div>
     <div class="flex gap-1.5">
+      <UButton v-if="y > 48" icon="i-tabler-arrow-up" color="gray" variant="ghost" aria-label="Scroll to top" @click="scrollToTop()" />
+
       <UButton
         :icon="isDark ? 'i-tabler-moon' : 'i-tabler-sun'"
         color="gray"
