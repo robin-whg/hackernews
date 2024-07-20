@@ -23,10 +23,17 @@ export default defineNuxtConfig({
     '@nuxtjs/robots',
     '@vueuse/nuxt',
     '@nuxt/ui',
+    '@nuxt/fonts',
   ],
 
   ui: {
     icons: {},
+  },
+
+  fonts: {
+    families: [
+      { name: 'Inter', provider: 'bunny', weights: [400, 600] },
+    ],
   },
 
   compatibilityDate: '2024-07-18',
