@@ -8,10 +8,10 @@ const type = computed(() => {
   if (item.value.type === 'poll')
     return ['Poll', 'red']
   if (item.value.title?.startsWith('Show HN:'))
-    return ['Show HN', 'green']
+    return ['Show', 'green']
   // NOTE: Some ask stories do not start with 'Ask HN:'
   if (item.value.title?.startsWith('Ask HN:') || (!item.value.url && item.value.type === 'story' && !item.value.title?.startsWith('Show HN:')))
-    return ['Ask HN', 'blue']
+    return ['Ask', 'blue']
 
   return ['Story', 'orange']
 })

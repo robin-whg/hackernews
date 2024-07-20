@@ -4,6 +4,26 @@ const router = useRouter()
 
 const options = feedTypes.map(feedType => feedType)
 const selectedFeedType = ref<FeedType>(route.params.feed as FeedType)
+const selectedFeedTypeIconColor = computed(() => {
+  switch (selectedFeedType.value) {
+    case 'top':
+      return 'orange'
+    case 'new':
+      return 'orange'
+    case 'best':
+      return 'orange'
+    case 'ask':
+      return 'blue'
+    case 'show':
+      return 'green'
+    case 'job':
+      return 'purple'
+    case 'bookmarks':
+      return 'yellow'
+    default:
+      return 'orange'
+  }
+})
 watch(selectedFeedType, (newSelectedFeedType, oldSelectedFeedType) => {
   if (newSelectedFeedType !== oldSelectedFeedType)
     router.push(`/${selectedFeedType.value}`)
@@ -21,12 +41,12 @@ const items = [[{
 </script>
 
 <template>
-  <div class="sticky top-0 z-10 border-b border-gray-800 bg-gray-900/75 p-3 flex justify-between">
+  <div class="sticky top-0 z-10 border-b border-gray-700 bg-gray-900 p-3 flex justify-between">
     <div>
-      <USelectMenu v-model="selectedFeedType" :options class="w-24" />
+      <USelectMenu v-model="selectedFeedType" :options class="w-28" :ui-menu="{ option: { selectedIcon: { base: `h-5 w-5 text-${selectedFeedTypeIconColor}-500 dark:text-${selectedFeedTypeIconColor}-400 flex-shrink-0` } } }" />
     </div>
     <div>
-      <UDropdown :items="items" :popper="{ placement: 'bottom-end' }" :close-delay="500" :ui="{ width: 'w-56' }">
+      <UDropdown :items="items" :popper="{ placement: 'bottom-end' }" :close-delay="500" :ui="{ width: 'w-50' }">
         <UButton color="gray" variant="ghost" icon="i-tabler-dots-vertical" />
 
         <template #open-items-in-new-tab="{ item }">

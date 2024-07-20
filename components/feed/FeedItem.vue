@@ -40,69 +40,67 @@ function toggleBookmark() {
 
 <template>
   <div
-    class="flex flex-col p-3 transition duration-100 ease-in-out"
+    class="flex flex-col p-3 transition duration-100 ease-in-out hover:bg-gray-900 gap-1.5"
   >
-    <div>
-      <div class="h-6 flex items-center gap-1.5 text-sm text-gray-400">
-        <BaseItemBadge :item="item" />
-
-        <template v-if="item.url">
-          <UIcon name="i-tabler-slash" class="text-gray-300" />
-
-          <p>
-            {{ host(item.url) }}
-          </p>
-        </template>
-      </div>
+    <div class="h-6 flex items-center gap-1.5 text-sm text-gray-300">
+      <BaseItemBadge :item="item" />
 
       <template v-if="item.url">
-        <ULink
-          :target
-          :to="item.url"
-          class="line-clamp-2 text-gray-50 md:text-lg visited:text-gray-400"
-        >
-          {{ title }}
-        </ULink>
-      </template>
-      <template v-else>
-        <p class="line-clamp-2 md:text-lg">
-          {{ title }}
+        <UIcon name="i-tabler-slash" class="text-gray-300" />
+
+        <p>
+          {{ host(item.url) }}
         </p>
       </template>
+    </div>
 
-      <div class="h-6 flex items-center text-sm text-gray-300">
-        <span class="truncate pr-1.5">
-          {{ item.score }} {{ item.score === 1 ? "point" : "points" }} by
-          <ULink
-            :target
-            class="hover:underline"
-            :to="`https://news.ycombinator.com/user?id=${item.by}`"
-          >{{ item.by }}
-          </ULink>
-          {{ timeAgo(item.time) }} ago
-        </span>
+    <template v-if="item.url">
+      <ULink
+        :target
+        :to="item.url"
+        class="line-clamp-2 md:text-lg visited:text-gray-300 font-semibold hover:underline"
+      >
+        {{ title }}
+      </ULink>
+    </template>
+    <template v-else>
+      <p class="line-clamp-2 md:text-lg font-semibold">
+        {{ title }}
+      </p>
+    </template>
 
-        <template v-if="mdAndLarger">
-          <UIcon name="i-tabler-slash" class="text-gray-300" />
+    <div class="h-6 flex items-center text-sm text-gray-300">
+      <span class="truncate pr-1.5">
+        {{ item.score }} {{ item.score === 1 ? "point" : "points" }} by
+        <ULink
+          :target
+          class="hover:underline"
+          :to="`https://news.ycombinator.com/user?id=${item.by}`"
+        >{{ item.by }}
+        </ULink>
+        {{ timeAgo(item.time) }} ago
+      </span>
 
-          <UButton variant="ghost" color="gray" size="xs" :target :to="`https://news.ycombinator.com/item?id=${item.id}`" icon="i-tabler-message-circle">
-            {{ item.descendants }}
-            <span v-if="item.descendants === 1">comment</span>
-            <span v-else>comments</span>
-          </UButton>
+      <template v-if="mdAndLarger">
+        <UIcon name="i-tabler-slash" class="text-gray-300" />
 
-          <!-- HACK: isBookmarked and addBookmark should be from the same source -->
-          <UButton
-            variant="ghost" :color="isBookmarked ? 'orange' : 'gray'" size="xs"
-            :icon="
-              isBookmarked ? 'i-tabler-bookmark-filled' : 'i-tabler-bookmark'
-            "
-            @click="toggleBookmark()"
-          >
-            {{ isBookmarked ? "remove" : "bookmark" }}
-          </UButton>
-        </template>
-      </div>
+        <UButton variant="ghost" color="gray" size="xs" :target :to="`https://news.ycombinator.com/item?id=${item.id}`" icon="i-tabler-message-circle">
+          {{ item.descendants }}
+          <span v-if="item.descendants === 1">comment</span>
+          <span v-else>comments</span>
+        </UButton>
+
+        <!-- HACK: isBookmarked and addBookmark should be from the same source -->
+        <UButton
+          variant="ghost" :color="isBookmarked ? 'orange' : 'gray'" size="xs"
+          :icon="
+            isBookmarked ? 'i-tabler-bookmark-filled' : 'i-tabler-bookmark'
+          "
+          @click="toggleBookmark()"
+        >
+          {{ isBookmarked ? "remove" : "bookmark" }}
+        </UButton>
+      </template>
     </div>
 
     <div v-if="!mdAndLarger" class="flex justify-end gap-1.5">

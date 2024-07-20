@@ -2,10 +2,14 @@ export default defineAppConfig({
   nuxtIcon: {},
   ui: {
     primary: 'orange',
-    gray: 'zinc',
+    gray: 'neutral',
     icons: {
       dynamic: true,
     },
-    badge: { rounded: 'rounded-full' },
+    selectMenu: {
+      default: {
+        selectedIcon: 'i-tabler-point-filled',
+      },
+    },
   },
 })

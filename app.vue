@@ -19,7 +19,7 @@ useHead({
     { name: 'theme-color', content: '#18181b' },
   ],
   bodyAttrs: {
-    class: 'bg-gray-900 text-gray-50 font-sans',
+    class: 'bg-gray-900 text-white font-sans',
   },
 })
 </script>
