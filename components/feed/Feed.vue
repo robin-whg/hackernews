@@ -36,7 +36,7 @@ const { isLoading: loadingMore, execute: loadMore } = useAsyncState(
     <template v-if="isReady">
       <ol v-if="items.length" class="flex flex-col border-b border-gray-200 dark:border-gray-700 divide-y divide-gray-200 dark:divide-gray-700">
         <li v-for="item in items" :key="item.id">
-          <FeedItem :item="item" />
+          <Item :item="item" />
         </li>
       </ol>
 
@@ -53,7 +53,7 @@ const { isLoading: loadingMore, execute: loadMore } = useAsyncState(
 
     <ol v-else class="flex flex-col border-b border-gray-200 dark:border-gray-700 divide-y divide-gray-200 dark:divide-gray-700">
       <li v-for="i in 30" :key="i">
-        <FeedSkeleton />
+        <ItemSkeleton />
       </li>
     </ol>
   </div>

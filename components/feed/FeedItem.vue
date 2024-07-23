@@ -84,7 +84,7 @@ function toggleBookmark() {
       <template v-if="mdAndLarger">
         <UIcon name="i-tabler-slash" class="text-gray-700 dark:text-gray-200" />
 
-        <UButton variant="ghost" color="gray" size="xs" :target :to="`https://news.ycombinator.com/item?id=${item.id}`" icon="i-tabler-message-circle">
+        <UButton variant="ghost" color="gray" size="xs" :target :to="`/item/${item.id}`" icon="i-tabler-message-circle">
           {{ item.descendants }}
           <span v-if="item.descendants === 1">comment</span>
           <span v-else>comments</span>

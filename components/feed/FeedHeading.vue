@@ -45,7 +45,7 @@ const isDark = computed({
 })
 
 const storage = useStorageStore()
-const items = [[{
+const dropDownItems = [[{
   label: 'Open items in new tab',
   click: () => {
     storage.openItemsInNewTab = !storage.openItemsInNewTab
@@ -70,13 +70,13 @@ const items = [[{
         @click="isDark = !isDark"
       />
 
-      <UDropdown :items="items" :popper="{ placement: 'bottom-end' }" :close-delay="500" :ui="{ width: 'w-50' }">
+      <UDropdown :items="dropDownItems" :popper="{ placement: 'bottom-end' }" :close-delay="500" :ui="{ width: 'w-50' }">
         <UButton color="gray" variant="ghost" icon="i-tabler-dots-vertical" />
 
-        <template #open-items-in-new-tab="{ item }">
+        <template #open-items-in-new-tab="{ item: dropdownItem }">
           <div class="flex justify-between gap-3 w-full">
             <span class="w-max">
-              {{ item.label }}
+              {{ dropdownItem.label }}
             </span>
             <UToggle v-model="storage.openItemsInNewTab" />
           </div>
