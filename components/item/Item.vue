@@ -7,8 +7,6 @@ const { item, expanded } = toRefs(props)
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const mdAndLarger = breakpoints.greaterOrEqual('md')
 
-const { host, timeAgo } = useUtils()
-
 const storage = useStorageStore()
 const target = computed(() => (storage.openItemsInNewTab ? '_blank' : '_self'))
 
