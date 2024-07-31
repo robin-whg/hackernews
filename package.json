@@ -13,16 +13,13 @@
   },
   "dependencies": {
     "@nuxtjs/robots": "^3.0.0",
-    "@pinia/nuxt": "^0.5.1",
-    "@vueuse/router": "^10.11.0",
-    "pinia": "^2.1.7"
+    "@vueuse/router": "^10.11.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.23.0",
     "@nuxt/devtools": "latest",
     "@nuxt/fonts": "^0.7.1",
     "@nuxt/ui": "^2.17.0",
-    "@pinia-plugin-persistedstate/nuxt": "^1.2.1",
     "@vueuse/core": "^10.11.0",
     "@vueuse/nuxt": "^10.11.0",
     "eslint": "9.5.0",

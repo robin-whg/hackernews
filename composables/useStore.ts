@@ -1,23 +1,37 @@
+import type { UseAsyncStateOptions } from '@vueuse/core'
+
 const api = useApi()
+const storage = useStorageHandler()
 
 const items = ref<Item[]>([])
 const feeds = ref<{ [key in FeedType]: number[] }>(Object.fromEntries(feedTypes.map(feedType => [[feedType], []])))
 
 export default function () {
   function getItem(id: number) {
-    return computed(() => items.value.find(item => item.id === id))
+    items.value.find(item => item.id === id)
+  }
+
+  function isBookmarked(id: number) {
+    return storage.isBookmarked(id)
+  }
+
+  function addBookmark(item: Item) {
+    feeds.value.bookmarks.push(item.id)
+    storage.addBookmark(item.id)
+  }
+
+  function deleteBookmark(item: Item) {
+    feeds.value.bookmarks = feeds.value.bookmarks.filter(id => id !== item.id)
+    storage.removeBookmark(item.id)
   }
 
   // PERF: Optimize
   function getFeed(feedType: FeedType, page = 1) {
-    return computed(() => {
-      const feed: number[] = feeds.value[feedType as keyof typeof feeds.value]
-      return items.value.filter(item => feed.slice(0, page * 30).includes(item.id)).sort((a, b) => feed.indexOf(a.id) - feed.indexOf(b.id))
-    })
+    const feed: number[] = feeds.value[feedType as keyof typeof feeds.value]
+    return items.value.filter(item => feed.slice(0, page * 30).includes(item.id)).sort((a, b) => feed.indexOf(a.id) - feed.indexOf(b.id))
   }
 
-  // fetchItem
-  function fetchItem(id: number) {
+  function fetchItem(id: number, options?: UseAsyncStateOptions<true, boolean> | undefined) {
     return useAsyncState(async () => {
       const localItem = items.value.find(item => item.id === id)
 
@@ -27,12 +41,12 @@ export default function () {
       }
 
       return true
-    }, false)
+    }, false, options)
   }
 
-  function fetchFeed(feedType: FeedType, page = 1) {
+  function fetchFeed(feedType: FeedType, options?: UseAsyncStateOptions<true, boolean> | undefined) {
     // TODO: Handle bookmarks feed
-    return useAsyncState(async () => {
+    return useAsyncState(async (page = 1) => {
       // fetch ids of feed if needed
       if (!feeds.value[feedType].length) {
         const feed = await api.fetchFeed(feedType)
@@ -50,15 +64,16 @@ export default function () {
       }
 
       return true
-    }, false)
+    }, false, options)
   }
 
-  // TODO: add Bookmarks functionality back in
-
   return {
+    getItem,
+    isBookmarked,
+    addBookmark,
+    deleteBookmark,
+    getFeed,
     fetchItem,
     fetchFeed,
-    getItem,
-    getFeed,
   }
 }

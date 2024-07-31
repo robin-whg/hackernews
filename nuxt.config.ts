@@ -17,8 +17,6 @@ export default defineNuxtConfig({
   },
 
   modules: [
-    '@pinia/nuxt',
-    '@pinia-plugin-persistedstate/nuxt',
     '@nuxtjs/robots',
     '@vueuse/nuxt',
     '@nuxt/ui',
