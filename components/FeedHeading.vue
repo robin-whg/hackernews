@@ -1,17 +1,7 @@
 <script setup lang="ts">
-const route = useRoute()
-const router = useRouter()
-
-const options = feedTypes.map(feedType => feedType)
-const selectedFeedType = ref<FeedType>(route.params.feed as FeedType)
-const selectedFeedTypeIconColor = computed(() => {
-  switch (selectedFeedType.value) {
-    case 'top':
-      return 'orange'
-    case 'new':
-      return 'orange'
-    case 'best':
-      return 'orange'
+const feedType = useRouteParams<FeedType>('feed', undefined, { transform: String })
+const feedTypeColor = computed(() => {
+  switch (feedType.value) {
     case 'ask':
       return 'blue'
     case 'show':
@@ -23,10 +13,6 @@ const selectedFeedTypeIconColor = computed(() => {
     default:
       return 'orange'
   }
-})
-watch(selectedFeedType, (newSelectedFeedType, oldSelectedFeedType) => {
-  if (newSelectedFeedType !== oldSelectedFeedType)
-    router.push(`/${selectedFeedType.value}`)
 })
 
 const { y } = useWindowScroll()
@@ -44,11 +30,11 @@ const isDark = computed({
   },
 })
 
-const storage = useStorageStore()
+const storage = useStorageHandler()
 const dropDownItems = [[{
   label: 'Open items in new tab',
   click: () => {
-    storage.openItemsInNewTab = !storage.openItemsInNewTab
+    storage.toggleOpenItemsInNewTab()
   },
   slot: 'open-items-in-new-tab',
 }]]
@@ -57,7 +43,7 @@ const dropDownItems = [[{
 <template>
   <div class="sticky top-0 z-10 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-3 flex justify-between">
     <div>
-      <USelectMenu v-model="selectedFeedType" :options class="w-28" :ui-menu="{ option: { selectedIcon: { base: `h-5 w-5 text-${selectedFeedTypeIconColor}-500 dark:text-${selectedFeedTypeIconColor}-400 flex-shrink-0` } } }" />
+      <USelectMenu v-model="feedType" :options="feedTypes" class="w-28" :ui-menu="{ option: { selectedIcon: { base: `h-5 w-5 text-${feedTypeColor}-500 dark:text-${feedTypeColor}-400 flex-shrink-0` } } }" />
     </div>
     <div class="flex gap-1.5">
       <UButton v-if="y > 48" icon="i-tabler-arrow-up" color="gray" variant="ghost" aria-label="Scroll to top" @click="scrollToTop()" />
@@ -78,7 +64,7 @@ const dropDownItems = [[{
             <span class="w-max">
               {{ dropdownItem.label }}
             </span>
-            <UToggle v-model="storage.openItemsInNewTab" />
+            <UToggle :value="storage.openItemsInNewTab" />
           </div>
         </template>
       </UDropdown>
