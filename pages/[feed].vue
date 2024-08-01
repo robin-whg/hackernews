@@ -3,16 +3,19 @@ definePageMeta({
   middleware: 'feed',
 })
 
-const feedType = useRouteParams<FeedType>('feed', undefined, { transform: String })
+const route = useRoute()
+const feedType = route.params.feed.toString()
+
+// const feedType = useRouteParams<FeedType>('feed', undefined, { transform: String })
 useHead({
-  title: feedType.value,
+  title: feedType,
 })
 
 const page = ref(1)
 
 const store = useStore()
-const items = computed(() => store.getFeed(feedType.value, page.value))
-const { isReady, error, execute } = store.fetchFeed(feedType.value)
+const items = computed(() => store.getFeed(feedType, page.value))
+const { isReady, error, execute } = store.fetchFeed(feedType)
 
 // FIXME: triggers loading state of initial load
 function loadMore() {

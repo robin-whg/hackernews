@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { useStorage } from '@vueuse/core'
 
-const feedType = useRouteParams<FeedType>('feed', undefined, { transform: String })
-const selected = ref<FeedType>(feedType.value)
+const route = useRoute()
+const router = useRouter()
+const feedType = route.params.feed.toString() as FeedType
+const selectedFeedType = ref<FeedType>(feedType)
 const feedTypeColor = computed(() => {
-  switch (feedType.value) {
+  switch (feedType) {
     case 'ask':
       return 'blue'
     case 'show':
@@ -17,8 +19,8 @@ const feedTypeColor = computed(() => {
       return 'orange'
   }
 })
-watch(selected, (value) => {
-  feedType.value = value
+watch(selectedFeedType, (value) => {
+  router.push(value)
 })
 
 const { y } = useWindowScroll()
@@ -42,7 +44,7 @@ const openItemsInNewTab = useStorage('open-items-in-new-tab', false)
 <template>
   <div class="sticky top-0 z-10 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-3 flex justify-between">
     <div>
-      <USelectMenu v-model="selected" :options="feedTypes" class="w-28" :ui-menu="{ option: { selectedIcon: { base: `h-5 w-5 text-${feedTypeColor}-500 dark:text-${feedTypeColor}-400 flex-shrink-0` } } }" />
+      <USelectMenu v-model="selectedFeedType" :options="feedTypes" class="w-28" :ui-menu="{ option: { selectedIcon: { base: `h-5 w-5 text-${feedTypeColor}-500 dark:text-${feedTypeColor}-400 flex-shrink-0` } } }" />
     </div>
     <div class="flex gap-1.5">
       <UButton v-if="y > 48" icon="i-tabler-arrow-up" color="gray" variant="ghost" aria-label="Scroll to top" @click="scrollToTop()" />
