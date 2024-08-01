@@ -61,7 +61,7 @@ const title = computed(() => {
           {{ timeAgo(item.time) }} ago
         </span>
 
-        <UButton v-if="!expanded" variant="ghost" color="gray" :target :to="`/item/${item.id}`" icon="i-tabler-message-circle">
+        <UButton v-if="!expanded" variant="ghost" color="gray" :to="`/item/${item.id}`" icon="i-tabler-message-circle">
           {{ item.descendants }}
         </UButton>
       </div>
