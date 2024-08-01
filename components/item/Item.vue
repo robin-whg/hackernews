@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import { useStorage } from '@vueuse/core'
+
 const props = withDefaults(defineProps<{ item: Item, expanded?: boolean }>(), { expanded: false })
 const { item, expanded } = toRefs(props)
 
-const storage = useStorageHandler()
-const target = computed(() => (storage.openItemsInNewTab ? '_blank' : '_self'))
+const openItemsInNewTab = useStorage('open-items-in-new-tab', false)
+const target = computed(() => (openItemsInNewTab.value ? '_blank' : '_self'))
 
 const title = computed(() => {
   const ask = 'Ask HN:'
@@ -58,7 +60,7 @@ const title = computed(() => {
           {{ timeAgo(item.time) }} ago
         </span>
 
-        <UButton variant="ghost" color="gray" :target :to="`https://news.ycombinator.com/item?id=${item.id}`" icon="i-tabler-message-circle">
+        <UButton v-if="!expanded" variant="ghost" color="gray" :target :to="`/item/${item.id}`" icon="i-tabler-message-circle">
           {{ item.descendants }}
         </UButton>
       </div>

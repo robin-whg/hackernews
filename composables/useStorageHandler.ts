@@ -1,13 +1,8 @@
 import { useStorage } from '@vueuse/core'
 
-const openItemsInNewTab = useStorage<boolean>('open-items-in-new-tab', true)
 const bookmarks = useStorage<Record<number, Bookmark>>('bookmarks', [])
 
 export default function () {
-  function toggleOpenItemsInNewTab() {
-    openItemsInNewTab.value = !openItemsInNewTab.value
-  }
-
   function isBookmarked(id: number) {
     return computed(() => !!bookmarks.value[id])
   }
@@ -22,10 +17,8 @@ export default function () {
   }
 
   return {
-    openItemsInNewTab: readonly(openItemsInNewTab),
     bookmarks: readonly(bookmarks),
     isBookmarked,
-    toggleOpenItemsInNewTab,
     addBookmark,
     removeBookmark,
   }

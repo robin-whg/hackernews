@@ -8,7 +8,7 @@ const feeds = ref<{ [key in FeedType]: number[] }>(Object.fromEntries(feedTypes.
 
 export default function () {
   function getItem(id: number) {
-    items.value.find(item => item.id === id)
+    return items.value.find(item => item.id === id)
   }
 
   function isBookmarked(id: number) {

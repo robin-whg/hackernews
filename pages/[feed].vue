@@ -1,7 +1,6 @@
 <script lang='ts' setup>
 definePageMeta({
   middleware: 'feed',
-  layout: 'feed',
 })
 
 const feedType = useRouteParams<FeedType>('feed', undefined, { transform: String })
@@ -24,6 +23,7 @@ function loadMore() {
 
 <template>
   <div class="flex flex-col">
+    <FeedHeading />
     <ol class="flex flex-col border-b border-gray-200 dark:border-gray-700 divide-y divide-gray-200 dark:divide-gray-700">
       <template v-if="!error">
         <template v-if="isReady">
