@@ -1,4 +1,6 @@
+import type { FeedType } from '~/types'
+
 export default defineNuxtRouteMiddleware((to) => {
-  if (to.params.feed && !feedTypes.includes(to.params.feed as FeedType))
-    return navigateTo(`/${feedTypes[0]}`)
+  if (to.params.feed && !FEED_TYPES.includes(to.params.feed as FeedType))
+    return navigateTo(`/${FEED_TYPES[0]}`)
 })

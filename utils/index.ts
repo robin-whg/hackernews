@@ -1,4 +1,4 @@
-export const feedTypes = ['top', 'new', 'best', 'ask', 'show', 'job', 'bookmarks']
+export const FEED_TYPES = ['top', 'new', 'best', 'ask', 'show', 'job', 'bookmarks'] as const
 
 export function host(url: string) {
   const host = url.replace(/^https?:\/\//, '').replace(/\/.*$/, '').replace('?id=', '/')

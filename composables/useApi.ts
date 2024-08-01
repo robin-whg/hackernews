@@ -1,3 +1,5 @@
+import type { FeedType, Item } from '~/types'
+
 export default function () {
   const baseUrl = 'https://hacker-news.firebaseio.com/v0'
 

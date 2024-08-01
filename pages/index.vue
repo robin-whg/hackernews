@@ -2,7 +2,7 @@
 definePageMeta({
   middleware: (from) => {
     if (from.path === '/')
-      return navigateTo(`/${feedTypes[0]}`)
+      return navigateTo(`/${FEED_TYPES[0]}`)
   },
 })
 </script>

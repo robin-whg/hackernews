@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useStorage } from '@vueuse/core'
+import type { Item } from '~/types'
 
 const props = withDefaults(defineProps<{ item: Item, expanded?: boolean }>(), { expanded: false })
 const { item, expanded } = toRefs(props)

@@ -1,3 +1,5 @@
+export type FeedType = typeof FEED_TYPES[number]
+
 export interface Item {
   id: number
   deleted?: boolean
@@ -14,4 +16,9 @@ export interface Item {
   title?: string
   parts?: number[]
   descendants?: number
+}
+
+export interface Bookmark {
+  id: number
+  timestamp: number
 }

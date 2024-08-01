@@ -1,12 +1,13 @@
 <script lang='ts' setup>
+import type { FeedType } from '~/types'
+
 definePageMeta({
   middleware: 'feed',
 })
 
 const route = useRoute()
-const feedType = route.params.feed.toString()
+const feedType = route.params.feed.toString() as FeedType
 
-// const feedType = useRouteParams<FeedType>('feed', undefined, { transform: String })
 useHead({
   title: feedType,
 })

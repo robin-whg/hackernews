@@ -1,10 +1,11 @@
 import type { UseAsyncStateOptions } from '@vueuse/core'
+import type { FeedType, Item } from '~/types'
 
 const api = useApi()
 const storage = useStorageHandler()
 
 const items = ref<Item[]>([])
-const feeds = ref<{ [key in FeedType]: number[] }>(Object.fromEntries(feedTypes.map(feedType => [[feedType], []])))
+const feeds = ref<{ [key in FeedType]: number[] }>(Object.fromEntries(FEED_TYPES.map(feedType => [[feedType], []])))
 
 export default function () {
   function getItem(id: number) {

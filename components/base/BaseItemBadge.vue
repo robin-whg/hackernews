@@ -1,4 +1,6 @@
 <script lang='ts' setup>
+import type { Item } from '~/types'
+
 const props = defineProps<{ item: Item }>()
 const { item } = toRefs(props)
 

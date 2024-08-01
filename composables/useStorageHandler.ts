@@ -1,4 +1,5 @@
 import { useStorage } from '@vueuse/core'
+import type { Bookmark } from '~/types'
 
 const bookmarks = useStorage<Record<number, Bookmark>>('bookmarks', [])
 
