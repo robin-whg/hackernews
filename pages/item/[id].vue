@@ -8,7 +8,7 @@ const { isReady, error } = store.fetchItem(itemId.value)
 
 <template>
   <div>
-    <ItemHeading />
+    <ItemHeading :item />
     <template v-if="!error">
       <div v-if="isReady && item">
         <Item :item expanded />

@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { useStorage } from '@vueuse/core'
+import type { Item } from '~/types'
+
+const props = defineProps<{ item?: Item }>()
+const { item } = toRefs(props)
 
 const router = useRouter()
 function goBack() {
@@ -26,9 +30,13 @@ const openItemsInNewTab = useStorage('open-items-in-new-tab', false)
 </script>
 
 <template>
-  <div class="sticky top-0 z-10 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-3 flex justify-between">
-    <div>
+  <div class="sticky top-0 z-10 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-3 flex justify-between gap-1.5">
+    <div class="flex items-center gap-1.5 overflow-hidden">
       <UButton icon="i-tabler-arrow-left" variant="ghost" color="gray" @click="goBack()" />
+
+      <div v-if="item && y > 48" class="truncate md:text-lg font-semibold">
+        {{ item.title }}
+      </div>
     </div>
     <div class="flex gap-1.5">
       <UButton v-if="y > 48" icon="i-tabler-arrow-up" color="gray" variant="ghost" aria-label="Scroll to top" @click="scrollToTop()" />
