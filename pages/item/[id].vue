@@ -14,7 +14,7 @@ const { isReady, error } = store.fetchItem(itemId.value)
         <Item :item expanded />
       </div>
       <div v-else>
-        loading
+        <ItemSkeleton />
       </div>
     </template>
     <template v-else>
