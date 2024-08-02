@@ -45,7 +45,7 @@ const openItemsInNewTab = useStorage('open-items-in-new-tab', false)
 </script>
 
 <template>
-  <div class="sticky top-0 z-10 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-3 flex justify-between">
+  <div class="sticky top-0 z-10 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-3 flex justify-between gap-1.5">
     <div>
       <USelectMenu v-model="selected" :options class="w-28" :ui-menu="{ option: { selectedIcon: { base: `h-5 w-5 text-${selectIconColor}-500 dark:text-${selectIconColor}-400 flex-shrink-0` } } }" />
     </div>
