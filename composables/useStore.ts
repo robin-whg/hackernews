@@ -38,6 +38,10 @@ export default function () {
 
       if (!localItem) {
         const item = await api.fetchItem(id)
+        // NOTE: API still returns ok if item is not found
+        if (!item)
+          throw new Error('Item not found')
+
         items.value.push(item)
       }
 
@@ -61,7 +65,11 @@ export default function () {
 
       if (idsToFetch.length) {
         const fetchedItems = await api.fetchItems(idsToFetch)
-        items.value.push(...fetchedItems)
+        fetchedItems.forEach((item) => {
+          // NOTE: API still returns ok if item is not found
+          if (item)
+            items.value.push(item)
+        })
       }
 
       return true

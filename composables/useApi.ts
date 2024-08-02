@@ -3,11 +3,11 @@ import type { FeedType, Item } from '~/types'
 export default function () {
   const baseUrl = 'https://hacker-news.firebaseio.com/v0'
 
-  function fetchItem(id: number): Promise<Item> {
+  function fetchItem(id: number): Promise<Item | null> {
     return $fetch<Item>(`${baseUrl}/item/${id}.json`)
   }
 
-  async function fetchItems(ids: number[]): Promise<Item[]> {
+  async function fetchItems(ids: number[]): Promise<(Item | null)[]> {
     return Promise.all(ids.map(id => fetchItem(id)))
   }
 
