@@ -9,6 +9,7 @@ const { isReady, error } = store.fetchItem(itemId.value)
 <template>
   <div>
     <ItemHeading :item />
+
     <template v-if="!error">
       <div v-if="isReady && item">
         <Item :item expanded />
@@ -17,6 +18,7 @@ const { isReady, error } = store.fetchItem(itemId.value)
         <ItemSkeleton />
       </div>
     </template>
+
     <template v-else>
       <p class="my-4 text-center">
         Error :(
