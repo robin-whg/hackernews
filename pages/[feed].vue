@@ -1,5 +1,5 @@
 <script lang='ts' setup>
-import type { FeedType, Item } from '~/types'
+import type { FeedType } from '~/types'
 
 definePageMeta({
   middleware: 'feed',
@@ -16,15 +16,14 @@ const page = ref(1)
 
 const store = useStore()
 const items = computed(() => store.getFeed(feedType, page.value))
-const { error, execute, isLoading } = store.fetchFeed(feedType)
 
+const { error, execute, isLoading } = store.fetchFeed(feedType)
 const initialIsLoading = ref(true)
 watchOnce(isLoading, (value) => {
   initialIsLoading.value = value
 })
 
-// TODO: Add isEnd computed property to hide load more button
-
+const isNotEnd = computed(() => items.value.length < store.feeds.value[feedType].length)
 function loadMore() {
   page.value = page.value + 1
   execute(undefined, page.value)
@@ -62,7 +61,7 @@ function loadMore() {
         <li v-for="item in items" :key="item.id">
           <Item :item="item" />
         </li>
-        <li>
+        <li v-if="isNotEnd">
           <div class="w-full flex justify-center p-3">
             <UButton :loading="isLoading" icon="i-tabler-arrow-down" variant="ghost" color="gray" @click="loadMore()">
               load more

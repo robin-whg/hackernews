@@ -69,6 +69,7 @@ export default function () {
   }
 
   return {
+    feeds: readonly(feeds),
     getItem,
     isBookmarked,
     addBookmark,
