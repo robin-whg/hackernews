@@ -61,8 +61,8 @@ function loadMore() {
         <li v-for="item in items" :key="item.id">
           <Item :item="item" />
         </li>
-        <li v-if="isNotEnd">
-          <div class="w-full flex justify-center p-3">
+        <li>
+          <div v-if="isNotEnd" class="w-full flex justify-center p-3">
             <UButton :loading="isLoading" icon="i-tabler-arrow-down" variant="ghost" color="gray" @click="loadMore()">
               load more
             </UButton>

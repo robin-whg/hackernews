@@ -19,6 +19,9 @@ const title = computed(() => {
 
   return item.value?.title
 })
+
+const store = useStore()
+const isBookmarked = computed(() => store.isBookmarked(item.value.id))
 </script>
 
 <template>
@@ -61,9 +64,13 @@ const title = computed(() => {
           {{ timeAgo(item.time) }} ago
         </span>
 
-        <UButton v-if="!expanded" variant="ghost" color="gray" :to="`/item/${item.id}`" icon="i-tabler-message-circle">
-          {{ item.descendants }}
-        </UButton>
+        <div class="flex gap-1 5">
+          <UButton v-if="!expanded" variant="ghost" color="gray" :to="`/item/${item.id}`" icon="i-tabler-message-circle">
+            {{ item.descendants }}
+          </UButton>
+
+          <UButton variant="ghost" :color="isBookmarked ? 'yellow' : 'gray'" :icon="isBookmarked ? 'i-tabler-bookmark-filled' : 'i-tabler-bookmark'" :title="isBookmarked ? 'remove bookmark' : 'add bookmark'" @click="isBookmarked ? store.deleteBookmark(item.id) : store.addBookmark(item.id)" />
+        </div>
       </div>
     </div>
 

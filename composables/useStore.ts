@@ -1,11 +1,12 @@
+import { useStorage } from '@vueuse/core'
 import type { UseAsyncStateOptions } from '@vueuse/core'
-import type { FeedType, Item } from '~/types'
+import type { Bookmark, FeedType, Item } from '~/types'
 
 const api = useApi()
-const storage = useStorageHandler()
 
 const items = ref<Item[]>([])
 const feeds = ref<{ [key in FeedType]: number[] }>(Object.fromEntries(FEED_TYPES.map(feedType => [[feedType], []])))
+const bookmarks = useStorage<Bookmark[]>('bookmarks', [])
 
 export default function () {
   function getItem(id: number) {
@@ -13,17 +14,19 @@ export default function () {
   }
 
   function isBookmarked(id: number) {
-    return storage.isBookmarked(id)
+    return !!bookmarks.value.find(bookmark => bookmark.id === id)
   }
 
-  function addBookmark(item: Item) {
-    feeds.value.bookmarks.push(item.id)
-    storage.addBookmark(item.id)
+  function addBookmark(id: number) {
+    if (!isBookmarked(id))
+      bookmarks.value.push({ id, timestamp: Date.now() })
+
+    feeds.value.bookmarks.push(id)
   }
 
-  function deleteBookmark(item: Item) {
-    feeds.value.bookmarks = feeds.value.bookmarks.filter(id => id !== item.id)
-    storage.removeBookmark(item.id)
+  function deleteBookmark(id: number) {
+    bookmarks.value = bookmarks.value.filter(bookmark => bookmark.id !== id)
+    feeds.value.bookmarks = feeds.value.bookmarks.filter(bookmark => bookmark !== id)
   }
 
   // PERF: Optimize
@@ -54,8 +57,14 @@ export default function () {
     return useAsyncState(async (page = 1) => {
       // fetch ids of feed if needed
       if (!feeds.value[feedType].length) {
-        const feed = await api.fetchFeed(feedType)
-        feeds.value[feedType] = feed
+        if (feedType !== 'bookmarks') {
+          const feed = await api.fetchFeed(feedType)
+          feeds.value[feedType] = feed
+        }
+        else {
+          const feed = bookmarks.value.map(bookmark => bookmark.id)
+          feeds.value[feedType] = feed
+        }
       }
 
       // fetch items of feed if needed
