@@ -25,7 +25,7 @@ const isBookmarked = computed(() => store.isBookmarked(item.value.id))
 </script>
 
 <template>
-  <div v-if="item" class="p-4 flex flex-col gap-4">
+  <div class="p-4 flex flex-col gap-4">
     <div
       class="flex flex-col gap-2"
     >

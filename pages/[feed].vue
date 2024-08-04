@@ -32,7 +32,7 @@ function loadMore() {
 
 <template>
   <div>
-    <FeedHeading />
+    <BaseHeading type="feed" />
 
     <ol class="flex flex-col divide-y divide-gray-200 dark:divide-gray-700">
       <template v-if="error">
