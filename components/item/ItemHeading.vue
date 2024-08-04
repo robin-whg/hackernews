@@ -26,7 +26,8 @@ const isDark = computed({
   },
 })
 
-const openItemsInNewTab = useStorage('open-items-in-new-tab', false)
+const openItemsInNewTab = useStorage('open-items-in-new-tab', true)
+const openCommentsInNewTab = useStorage('open-comments-in-new-tab', false)
 </script>
 
 <template>
@@ -51,14 +52,17 @@ const openItemsInNewTab = useStorage('open-items-in-new-tab', false)
 
       <UPopover :popper="{ placement: 'bottom-end' }">
         <UButton color="gray" variant="ghost" icon="i-tabler-dots-vertical" />
+
         <template #panel>
-          <div class="p-1">
-            <div class="flex justify-between gap-3 w-full items-center">
-              <label for="open-items-in-new-tab" class="cursor-pointer flex items-center gap-4 px-1.5 py-1.5 text-sm">
-                Open items in new tab
-                <UToggle id="open-items-in-new-tab" v-model="openItemsInNewTab" size="sm" />
-              </label>
-            </div>
+          <div class="p-1 flex flex-col">
+            <label for="open-items-in-new-tab" class="cursor-pointer flex items-center gap-4 px-1.5 py-1.5 text-sm justify-between w-full">
+              Open items in new tab
+              <UToggle id="open-items-in-new-tab" v-model="openItemsInNewTab" size="sm" />
+            </label>
+            <label for="open-comments-in-new-tab" class="cursor-pointer flex items-center gap-4 px-1.5 py-1.5 text-sm justify-between w-full">
+              Open comments in new tab
+              <UToggle id="open-comments-in-new-tab" v-model="openCommentsInNewTab" size="sm" />
+            </label>
           </div>
         </template>
       </UPopover>

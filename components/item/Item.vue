@@ -6,7 +6,7 @@ const props = withDefaults(defineProps<{ item: Item, expanded?: boolean }>(), { 
 const { item, expanded } = toRefs(props)
 
 const openItemsInNewTab = useStorage('open-items-in-new-tab', false)
-const target = computed(() => (openItemsInNewTab.value ? '_blank' : '_self'))
+const openCommentsInNewTab = useStorage('open-comments-in-new-tab', false)
 
 const title = computed(() => {
   const ask = 'Ask HN:'
@@ -39,7 +39,7 @@ const isBookmarked = computed(() => store.isBookmarked(item.value.id))
 
       <template v-if="item.url">
         <ULink
-          :target
+          :target="openItemsInNewTab ? '_blank' : '_self'"
           :to="item.url"
           class="line-clamp-2 md:text-lg visited:text-gray-700 visited:dark:text-gray-200 font-semibold hover:underline"
         >
@@ -56,7 +56,7 @@ const isBookmarked = computed(() => store.isBookmarked(item.value.id))
         <span class="truncate pr-1.5">
           {{ item.score }} {{ item.score === 1 ? "point" : "points" }} by
           <ULink
-            :target
+            :target="openItemsInNewTab ? '_blank' : '_self'"
             class="hover:underline"
             :to="`https://news.ycombinator.com/user?id=${item.by}`"
           >{{ item.by }}
@@ -65,7 +65,7 @@ const isBookmarked = computed(() => store.isBookmarked(item.value.id))
         </span>
 
         <div class="flex gap-1 5">
-          <UButton v-if="!expanded" variant="ghost" color="gray" :to="`/item/${item.id}`" icon="i-tabler-message-circle">
+          <UButton v-if="!expanded" variant="ghost" color="gray" :target="openCommentsInNewTab ? '_blank' : '_self'" :to="`/item/${item.id}`" icon="i-tabler-message-circle">
             {{ item.descendants }}
           </UButton>
 
