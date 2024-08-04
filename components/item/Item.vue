@@ -56,9 +56,8 @@ const isBookmarked = computed(() => store.isBookmarked(item.value.id))
         <span class="truncate pr-1.5">
           {{ item.score }} {{ item.score === 1 ? "point" : "points" }} by
           <ULink
-            :target="openItemsInNewTab ? '_blank' : '_self'"
             class="hover:underline"
-            :to="`https://news.ycombinator.com/user?id=${item.by}`"
+            :to="`/user/${item.by}`"
           >{{ item.by }}
           </ULink>
           {{ timeAgo(item.time) }} ago
