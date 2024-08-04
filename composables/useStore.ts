@@ -21,12 +21,12 @@ export default function () {
     if (!isBookmarked(id))
       bookmarks.value.push({ id, timestamp: Date.now() })
 
-    feeds.value.bookmarks.push(id)
+    feeds.value.saved.push(id)
   }
 
   function deleteBookmark(id: number) {
     bookmarks.value = bookmarks.value.filter(bookmark => bookmark.id !== id)
-    feeds.value.bookmarks = feeds.value.bookmarks.filter(bookmark => bookmark !== id)
+    feeds.value.saved = feeds.value.saved.filter(bookmark => bookmark !== id)
   }
 
   // PERF: Optimize
@@ -57,7 +57,7 @@ export default function () {
     return useAsyncState(async (page = 1) => {
       // fetch ids of feed if needed
       if (!feeds.value[feedType].length) {
-        if (feedType !== 'bookmarks') {
+        if (feedType !== 'saved') {
           const feed = await api.fetchFeed(feedType)
           feeds.value[feedType] = feed
         }

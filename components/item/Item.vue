@@ -69,7 +69,7 @@ const isBookmarked = computed(() => store.isBookmarked(item.value.id))
             {{ item.descendants }}
           </UButton>
 
-          <UButton variant="ghost" :color="isBookmarked ? 'yellow' : 'gray'" :icon="isBookmarked ? 'i-tabler-bookmark-filled' : 'i-tabler-bookmark'" :title="isBookmarked ? 'remove bookmark' : 'add bookmark'" @click="isBookmarked ? store.deleteBookmark(item.id) : store.addBookmark(item.id)" />
+          <UButton variant="ghost" :color="isBookmarked ? 'yellow' : 'gray'" :icon="isBookmarked ? 'i-tabler-bookmark-filled' : 'i-tabler-bookmark'" :title="isBookmarked ? 'unsave' : 'save'" @click="isBookmarked ? store.deleteBookmark(item.id) : store.addBookmark(item.id)" />
         </div>
       </div>
     </div>
