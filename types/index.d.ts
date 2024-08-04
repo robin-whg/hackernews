@@ -22,3 +22,11 @@ export interface Bookmark {
   id: number
   timestamp: number
 }
+
+export interface User {
+  id: string
+  created: number
+  karma: number
+  submitted: number[]
+  about?: string
+}

@@ -1,4 +1,4 @@
-import type { FeedType, Item } from '~/types'
+import type { FeedType, Item, User } from '~/types'
 
 export default function () {
   const baseUrl = 'https://hacker-news.firebaseio.com/v0'
@@ -15,9 +15,14 @@ export default function () {
     return $fetch<number[]>(`${baseUrl}/${feedType}stories.json`)
   }
 
+  async function fetchUser(id: string): Promise<User | null> {
+    return $fetch<User>(`${baseUrl}/user/${id}.json`)
+  }
+
   return {
     fetchItem,
     fetchItems,
     fetchFeed,
+    fetchUser,
   }
 }

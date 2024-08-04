@@ -14,7 +14,14 @@ export function timeAgo(time: number | Date) {
     return pluralize(~~(between / 60), ' minute')
   else if (between < 86400)
     return pluralize(~~(between / 3600), ' hour')
-  else return pluralize(~~(between / 86400), ' day')
+  else if (between < 604800)
+    return pluralize(~~(between / 86400), ' day')
+  else if (between < 2592000)
+    return pluralize(~~(between / 604800), ' week')
+  else if (between < 31536000)
+    return pluralize(~~(between / 2592000), ' month')
+  else
+    return pluralize(~~(between / 31536000), ' year')
 }
 
 export function pluralize(time: number, label: string) {

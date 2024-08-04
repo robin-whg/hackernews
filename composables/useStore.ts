@@ -85,6 +85,17 @@ export default function () {
     }, false, options)
   }
 
+  function fetchUser(id: string) {
+    return useAsyncState(async () => {
+      const user = await api.fetchUser(id)
+
+      if (!user)
+        throw new Error('User not found')
+
+      return user
+    }, null)
+  }
+
   return {
     feeds: readonly(feeds),
     getItem,
@@ -94,5 +105,6 @@ export default function () {
     getFeed,
     fetchItem,
     fetchFeed,
+    fetchUser,
   }
 }
