@@ -2,8 +2,7 @@
 const itemId = useRouteParams('id', undefined, { transform: Number })
 
 const store = useStore()
-const item = computed(() => store.getItem(itemId.value))
-const { isReady, error } = store.fetchItem(itemId.value)
+const { isReady, error, state: item } = store.fetchItem(itemId.value)
 </script>
 
 <template>

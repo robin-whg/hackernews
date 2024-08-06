@@ -35,21 +35,18 @@ export default function () {
     return items.value.filter(item => feed.slice(0, page * 30).includes(item.id)).sort((a, b) => feed.indexOf(a.id) - feed.indexOf(b.id))
   }
 
-  function fetchItem(id: number, options?: UseAsyncStateOptions<true, boolean> | undefined) {
+  function fetchItem(id: number) {
     return useAsyncState(async () => {
-      const localItem = items.value.find(item => item.id === id)
+      const item = items.value.find(item => item.id === id) ?? await api.fetchItem(id)
 
-      if (!localItem) {
-        const item = await api.fetchItem(id)
-        // NOTE: API still returns ok if item is not found
-        if (!item)
-          throw new Error('Item not found')
+      // NOTE: API still returns ok if item is not found
+      if (!item)
+        throw new Error('Item not found')
 
-        items.value.push(item)
-      }
+      items.value.push(item)
 
-      return true
-    }, false, options)
+      return item
+    }, undefined)
   }
 
   function fetchFeed(feedType: FeedType, options?: UseAsyncStateOptions<true, boolean> | undefined) {
@@ -93,7 +90,7 @@ export default function () {
         throw new Error('User not found')
 
       return user
-    }, null)
+    }, undefined)
   }
 
   return {
